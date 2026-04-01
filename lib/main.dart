@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/login/login_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'app/features/home/router/app_router.dart';
 import 'app/features/home/view/screen/login/login_viewmodel.dart';
 import 'firebase_options.dart';
 
@@ -11,7 +13,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,12 +32,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light,
+          ),
+        ),
       ),
-      home: ChangeNotifierProvider(
-        create: (_) => LoginViewModel(),
-        child: const LoginScreen(),
-      ),
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRouter.login,
+      onGenerateRoute: AppRouter.generateRoute,
+      //home: const LoginScreen(),
     );
   }
 }

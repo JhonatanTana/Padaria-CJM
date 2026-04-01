@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/services/auth_service.dart';
 
 import '../home/home_screen.dart';
@@ -37,7 +38,7 @@ class LoginViewModel extends ChangeNotifier {
       _storage.write(key: "password", value: password.text);
 
       if (context.mounted) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+        Navigator.pushReplacementNamed(context, AppRouter.home);
       }
     } else {
       isLoading = false;
