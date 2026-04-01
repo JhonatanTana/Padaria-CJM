@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class SupplierScreen extends StatelessWidget {
+  const SupplierScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       child: Padding(
           padding: EdgeInsets.all(8),
           child: const Placeholder()
-      ),
+      )
     );
   }
 }

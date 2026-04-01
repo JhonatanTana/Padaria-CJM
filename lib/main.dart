@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:padaria_cjm2/app/features/home/view/screen/login/login_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +42,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRouter.login,
       onGenerateRoute: AppRouter.generateRoute,
-      //home: const LoginScreen(),
     );
   }
 }
