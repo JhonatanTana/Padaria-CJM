@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Movements {
+class Movement {
   Timestamp date;
   bool isPayment;
   double amount;
 
-  Movements({required this.date, required this.isPayment, required this.amount});
+  Movement({required this.date, required this.isPayment, required this.amount});
 
-  Movements.fromMap(Map<String, dynamic> map)
+  Movement.fromMap(Map<String, dynamic> map)
     : date = map['data'],
     isPayment = map['pagamento'],
     amount = map['valor'];

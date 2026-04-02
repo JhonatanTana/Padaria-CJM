@@ -9,11 +9,17 @@ class LoginViewModel extends ChangeNotifier {
 
   final email = TextEditingController();
   final password = TextEditingController();
+  bool obscureText = true;
 
   bool isLoading = false;
 
   LoginViewModel() {
     _init();
+  }
+
+  toggleView() {
+    obscureText = !obscureText;
+    notifyListeners();
   }
 
   Future<void> _init() async {

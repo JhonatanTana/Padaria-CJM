@@ -21,6 +21,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               TextFormField(
                 controller: vm.email,
+                keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   label: Text("Email"),
                   border: OutlineInputBorder(),
@@ -28,10 +29,17 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: vm.password,
-                obscureText: true,
-                decoration: const InputDecoration(
+                obscureText: vm.obscureText,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
                   label: Text("Senha"),
                   border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      vm.obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () => vm.toggleView(),
+                  ),
                 ),
               ),
               AppButton(

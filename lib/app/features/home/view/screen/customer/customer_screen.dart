@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_text.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/customer.dart';
@@ -41,23 +42,17 @@ class CustomerScreen extends StatelessWidget {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          customer.name,
+                        AppText(
+                          text: customer.name, 
                           style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
                             color: customer.canSale ? Colors.black : Colors.red,
-                          ),
+                          )
                         ),
-                        Text(
-                          vm.currencyFormatter(customer.balance),
+                        AppText(
+                          text: vm.currencyFormatter(customer.balance),
                           style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
                             color: customer.canSale ? Colors.black : Colors.red,
-                          ),
+                          )
                         ),
                       ],
                     ),
