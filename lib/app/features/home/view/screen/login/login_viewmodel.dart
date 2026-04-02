@@ -3,8 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/services/auth_service.dart';
 
-import '../home_route/home_route_screen.dart';
-
 class LoginViewModel extends ChangeNotifier {
   final _service = AuthService();
   final _storage = const FlutterSecureStorage();

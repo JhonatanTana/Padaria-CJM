@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:padaria_cjm2/app/features/home/view/screen/customer/customer_viewmodel.dart';
+import 'package:padaria_cjm2/app/features/home/view/screen/movements/movements_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'app/features/home/router/app_router.dart';
 import 'app/features/home/view/screen/login/login_viewmodel.dart';
@@ -17,6 +19,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => CustomerViewModel()),
+        ChangeNotifierProvider(create: (_) => MovementsViewModel()),
       ],
       child: const MyApp(),
     ),
@@ -35,7 +39,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.dark,
           ),
         ),
       ),

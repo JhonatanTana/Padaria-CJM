@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -16,6 +17,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       centerTitle: true,
       foregroundColor: Colors.white,
       flexibleSpace: Container(
