@@ -21,4 +21,16 @@ class CustomerService {
       return null;
     });
   }
+
+  Future<void> addCustomer(Customer customer) async {
+    await _storage.collection('clientes').add(customer.toJSON());
+  }
+
+  Future<void> updateCustomer(Customer customer) async {
+    await _storage.collection('clientes').doc(customer.id).update(customer.toJSON());
+  }
+
+  Future<void> deleteCustomer(String id) async {
+    await _storage.collection('clientes').doc(id).delete();
+  }
 }

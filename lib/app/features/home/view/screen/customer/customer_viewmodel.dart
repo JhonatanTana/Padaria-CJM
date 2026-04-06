@@ -54,6 +54,23 @@ class CustomerViewModel extends ChangeNotifier {
     return formatCurrency.format(amount);
   }
 
+  Future<void> addCustomer(String name, bool canSale) async {
+    final newCustomer = Customer(
+      name: name,
+      canSale: canSale,
+      balance: 0.0,
+    );
+    await _service.addCustomer(newCustomer);
+  }
+
+  Future<void> updateCustomer(Customer customer) async {
+    await _service.updateCustomer(customer);
+  }
+
+  Future<void> deleteCustomer(String id) async {
+    await _service.deleteCustomer(id);
+  }
+
   @override
   void dispose() {
     _subscription?.cancel();

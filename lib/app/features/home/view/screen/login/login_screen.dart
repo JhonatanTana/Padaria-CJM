@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_input.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/app_button.dart';
@@ -19,29 +20,19 @@ class LoginScreen extends StatelessWidget {
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
+              AppInput(
                 controller: vm.email,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  label: Text("Email"),
-                  border: OutlineInputBorder(),
-                ),
+                label: "Email",
+                inputType: TextInputType.emailAddress,
               ),
-              TextFormField(
+
+              AppInput(
                 controller: vm.password,
-                obscureText: vm.obscureText,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  label: Text("Senha"),
-                  border: OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      vm.obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: () => vm.toggleView(),
-                  ),
-                ),
+                label: "Senha",
+                obscureText: true,
+                inputType: TextInputType.visiblePassword,
               ),
+
               AppButton(
                 text: vm.isLoading ? "Carregando..." : "Entrar",
                 onPressed: () => vm.login(context),

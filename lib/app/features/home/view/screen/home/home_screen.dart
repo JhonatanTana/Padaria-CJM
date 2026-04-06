@@ -8,10 +8,10 @@ class HomeScreen extends StatelessWidget {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: Padding(
+      /*child: Padding(
           padding: EdgeInsets.all(8),
           child: const Placeholder()
-      ),
+      ),*/
     );
   }
 }

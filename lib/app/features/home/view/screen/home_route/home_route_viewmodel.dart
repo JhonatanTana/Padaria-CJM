@@ -10,11 +10,12 @@ class HomeRouteViewModel extends ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
   List<Widget> get widgetOptions => _widgetOptions;
+  final PageController pageController = PageController();
 
   final List<Widget> _widgetOptions = const <Widget>[
-    HomeScreen(),
-    CustomerScreen(),
-    SupplierScreen(),
+    HomeScreen(key: ValueKey(0)),
+    CustomerScreen(key: ValueKey(1)),
+    SupplierScreen(key: ValueKey(2)),
   ];
 
   List<BottomNavigation> items = [
@@ -28,18 +29,23 @@ class HomeRouteViewModel extends ChangeNotifier {
       title: "Clientes",
       icon: Icon(Icons.person),
       actionIcon: Icon(Icons.add),
-      action: AppRouter.home
+      action: null
     ),
     BottomNavigation(
       title: "Fornecedores",
       icon: Icon(Icons.groups),
       actionIcon: Icon(Icons.add),
-      action: AppRouter.home
+      action: null
     ),
   ];
 
   void onItemTapped(int index) {
     _selectedIndex = index;
+    pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut
+    );
     notifyListeners();
   }
 }

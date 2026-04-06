@@ -21,15 +21,21 @@ class HomeRouteScreen extends StatelessWidget {
             appBar: AppTopBar(
               title: item.title,
               actions: [
-                IconButton(
-                  icon: item.actionIcon,
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, item.action);
-                  },
-                ),
+                if (item.action != null)
+                  IconButton(
+                    icon: item.actionIcon,
+                    onPressed: () {
+                      Navigator.pushNamed(context, item.action!);
+                    },
+                  ),
               ],
             ),
-            body: vm.widgetOptions.elementAt(vm.selectedIndex),
+            body: PageView(
+              controller: vm.pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: vm.widgetOptions,
+
+            ),
             bottomNavigationBar: AppBottomBar(
               selectedIndex: vm.selectedIndex,
               onItemTapped: vm.onItemTapped,
