@@ -6,7 +6,7 @@ import 'package:padaria_cjm2/app/features/home/view/widgets/app_top_bar.dart';
 import 'package:provider/provider.dart';
 
 class MovementsScreen extends StatelessWidget {
-    const MovementsScreen({super.key});
+  const MovementsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +15,7 @@ class MovementsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppTopBar(
         title: vm.customer?.name ?? "Movimentações",
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-
-            },
-          )
-        ],
+        actions: [IconButton(icon: const Icon(Icons.add), onPressed: () {})],
       ),
       body: SafeArea(
         child: Padding(
@@ -30,60 +23,53 @@ class MovementsScreen extends StatelessWidget {
           child: Column(
             spacing: 8,
             children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: vm.movements.length,
-                itemBuilder: (context, index) {
-                  Movement movement = vm.movements[index];
+              Expanded(
+                child: ListView.builder(
+                  itemCount: vm.movements.length,
+                  itemBuilder: (context, index) {
+                    Movement movement = vm.movements[index];
 
-                  return ListTile(
-                    dense: true,
-                    visualDensity: VisualDensity.compact,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AppText(
-                          text: vm.dateFormatter(movement.date.toDate(), false),
-                          style: TextStyle(
-                            color: movement.isPayment ? Colors.green : Colors.black
+                    return ListTile(
+                      dense: true,
+                      visualDensity: VisualDensity.compact,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AppText(
+                            text: vm.dateFormatter(movement.date.toDate(), false),
+                            style: TextStyle(color: movement.isPayment ? Colors.green : Colors.black),
                           ),
-                        ),
-                        AppText(
-                          text: movement.isPayment ? "Pagamento" : "Venda", 
-                          style: TextStyle(
-                            color: movement.isPayment ? Colors.green : Colors.black
+                          AppText(
+                            text: movement.isPayment ? "Pagamento" : "Venda",
+                            style: TextStyle(color: movement.isPayment ? Colors.green : Colors.black),
                           ),
-                        ),
-                        AppText(
-                          text: vm.currencyFormatter(movement.amount),
-                          style: TextStyle(
-                            color: movement.isPayment ? Colors.green : Colors.black
+                          AppText(
+                            text: vm.currencyFormatter(movement.amount),
+                            style: TextStyle(color: movement.isPayment ? Colors.green : Colors.black),
                           ),
-                        ),
-                      ],
-                    ),
-                    onTap: () {},
-                  );
-                },
+                        ],
+                      ),
+                      onTap: () => vm.openNotesModal(context, movement.notes),
+                      onLongPress: () => vm.openOptionsMenu(context),
+                    );
+                  },
+                ),
               ),
-            ),
-              Divider(
-                color: Colors.grey[300],
-                thickness: 1,
-              ),
+              Divider(color: Colors.grey[300], thickness: 1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AppText(text: "Total"),
-                  AppText(text: vm.currencyFormatter(vm.customer != null ? vm.totalBalance : 0)),
+                  AppText(
+                    text: vm.currencyFormatter(vm.customer != null ? vm.totalBalance : 0)
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
-      )
-
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 import 'package:padaria_cjm2/app/features/home/services/customer_service.dart';
@@ -20,6 +20,12 @@ class MovementsViewModel extends ChangeNotifier {
   MovementsViewModel({this.customerId}) {
     _getCustomerById();
     _getMovements();
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
   }
 
   void _getCustomerById() async {
@@ -42,12 +48,6 @@ class MovementsViewModel extends ChangeNotifier {
     }, onError: (e) {
       // TODO: Implementar mensagem de erro
     });
-  }
-
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
   }
 
   String currencyFormatter(double amount) {
@@ -81,5 +81,92 @@ class MovementsViewModel extends ChangeNotifier {
     }
 
     return total;
+  }
+
+  void openNotesModal(BuildContext context, String? notes) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      builder: (context) =>
+        StatefulBuilder(builder: (context, setState) =>
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 64,
+              left: 16,
+              right: 16,
+              top: 16,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 8,
+              children: [
+
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Observações:",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    notes ?? "",
+                    style: const TextStyle(
+                      fontSize: 14
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      isScrollControlled: true
+    );
+  }
+
+  void openOptionsMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      showDragHandle: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).padding.bottom + 16,
+          left: 8,
+          right: 8,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.edit_outlined),
+              title: const Text("Editar"),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            Divider(height: 8),
+            ListTile(
+              leading: const Icon(Icons.delete_outline, color: Colors.red),
+              title: const Text(
+                "Deletar",
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

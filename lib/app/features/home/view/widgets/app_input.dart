@@ -52,6 +52,7 @@ class _AppInputState extends State<AppInput> {
       controller: widget.controller,
       obscureText: _obscureText,
       keyboardType: widget.inputType,
+      cursorColor: Colors.red,
       decoration: InputDecoration(
         labelText: widget.label,
         border: const OutlineInputBorder(),

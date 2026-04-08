@@ -20,6 +20,8 @@ class LoginScreen extends StatelessWidget {
             spacing: 20,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset("assets/images/logo.png"),
+
               AppInput(
                 controller: vm.email,
                 label: "Email",

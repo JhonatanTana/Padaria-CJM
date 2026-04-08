@@ -6,6 +6,7 @@ class Assets {
   Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class $AssetsFontsGen {
@@ -68,6 +69,12 @@ class $AssetsFontsGen {
       'assets/fonts/Poppins-SemiBoldItalic.ttf';
   final String poppinsThin = 'assets/fonts/Poppins-Thin.ttf';
   final String poppinsThinItalic = 'assets/fonts/Poppins-ThinItalic.ttf';
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  final AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
 }
 
 class AssetGenImage {
