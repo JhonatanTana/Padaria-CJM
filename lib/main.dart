@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Padaria CJM',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFD7263D)),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(

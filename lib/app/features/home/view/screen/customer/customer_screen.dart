@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_input.dart';
-import 'package:padaria_cjm2/app/features/home/view/widgets/app_text.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_item.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +16,7 @@ class CustomerScreen extends StatelessWidget {
     final vm = context.watch<CustomerViewModel>();
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FB),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -34,50 +35,38 @@ class CustomerScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   Customer customer = vm.customers[index];
 
-                  return Dismissible(
-                    key: Key(customer.id!),
-                    direction: DismissDirection.endToStart,
-                    confirmDismiss: (direction) async {
-                      return await AppConfirmationDialog.show(
-                        context: context,
-                        title: "Confirmar",
-                        content: "Deseja realmente excluir o cliente ${customer.name}?",
-                        confirmText: "Excluir",
-                      );
-                    },
-                    onDismissed: (direction) {
-                      vm.deleteCustomer(customer.id!);
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: const Icon(Icons.delete, color: Colors.white),
-                    ),
-
-                    child: ListTile(
-                      dense: true,
-                      visualDensity: VisualDensity.compact,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText(
-                            text: customer.name,
-                            style: TextStyle(
-                              color: customer.canSale ? Colors.black : Colors.red,
-                            ),
-                          ),
-                          AppText(
-                            text: vm.currencyFormatter(customer.balance),
-                            style: TextStyle(
-                              color: customer.canSale ? Colors.black : Colors.red,
-                            ),
-                          ),
-                        ],
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Dismissible(
+                      key: Key(customer.id!),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) async {
+                        return await AppConfirmationDialog.show(
+                          context: context,
+                          title: "Confirmar",
+                          content: "Deseja realmente excluir o cliente ${customer.name}?",
+                          confirmText: "Excluir",
+                        );
+                      },
+                      onDismissed: (direction) => vm.deleteCustomer(customer.id!),
+                      background: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
-                      onTap: () => Navigator.pushNamed(context, AppRouter.movements, arguments: customer.id),
-                      onLongPress: () => vm.openCustomerModal(context, vm, customer: customer),
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(context, AppRouter.movements, arguments: customer.id),
+                        onLongPress: () => vm.openCustomerModal(context, vm, customer: customer),
+                        child: AppPartnerItem(
+                          name: customer.name,
+                          balance: vm.currencyFormatter(customer.balance),
+                          canSale: customer.canSale,
+                        ),
+                      ),
                     ),
                   );
                 },
@@ -87,7 +76,10 @@ class CustomerScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
+        backgroundColor: Color(0xFFD7263D),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
         onPressed: () => vm.openCustomerModal(context, vm),
         child: const Icon(Icons.add, color: Colors.white),
       ),

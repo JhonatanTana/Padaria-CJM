@@ -52,15 +52,15 @@ class _AppInputState extends State<AppInput> {
       controller: widget.controller,
       obscureText: _obscureText,
       keyboardType: widget.inputType,
-      cursorColor: Colors.red,
+      cursorColor: Color(0xFFD7263D),
       decoration: InputDecoration(
         labelText: widget.label,
         border: const OutlineInputBorder(),
         labelStyle: TextStyle(
-          color: isFocused ? Colors.red : Colors.grey,
+          color: isFocused ? Color(0xFFD7263D) : Colors.grey,
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 2),
+          borderSide: BorderSide(color: Color(0xFFD7263D), width: 2),
         ),
         suffixIcon: widget.obscureText ? IconButton(
           icon: Icon( _obscureText ? Icons.visibility : Icons.visibility_off ),

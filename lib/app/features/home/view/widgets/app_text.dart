@@ -12,7 +12,6 @@ class AppText extends StatelessWidget {
       fontFamily: "Poppins",
       fontWeight: FontWeight.w500,
       fontSize: 16,
-      
     );
 
     return Text(text, style: defaultStyle.merge(style));

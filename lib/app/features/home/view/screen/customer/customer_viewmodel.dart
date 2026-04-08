@@ -122,7 +122,7 @@ class CustomerViewModel extends ChangeNotifier {
                     scale: 0.8,
                     child: Switch(
                       value: canSale,
-                      activeTrackColor: Colors.red,
+                      activeTrackColor: Color(0xFFD7263D),
                       onChanged: (value) {
                         setState(() {
                           canSale = value;
@@ -136,7 +136,7 @@ class CustomerViewModel extends ChangeNotifier {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFD7263D)),
                   onPressed: () async {
                     if (nameController.text.isNotEmpty) {
                       if (customer == null) {

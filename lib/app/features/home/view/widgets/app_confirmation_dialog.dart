@@ -14,7 +14,7 @@ class AppConfirmationDialog extends StatelessWidget {
     required this.content,
     this.cancelText = "Cancelar",
     this.confirmText = "Confirmar",
-    this.confirmColor = Colors.red,
+    this.confirmColor = const Color(0xFFD7263D),
   });
 
   static Future<bool?> show({
@@ -23,7 +23,7 @@ class AppConfirmationDialog extends StatelessWidget {
     required String content,
     String cancelText = "Cancelar",
     String confirmText = "Confirmar",
-    Color confirmColor = Colors.red,
+    Color confirmColor = const Color(0xFFD7263D),
   }) {
     return showDialog<bool>(
       context: context,
