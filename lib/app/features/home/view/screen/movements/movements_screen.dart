@@ -17,6 +17,7 @@ class MovementsScreen extends StatelessWidget {
         title: vm.customer?.name ?? "Movimentações",
         actions: [IconButton(icon: const Icon(Icons.add), onPressed: () {})],
       ),
+      backgroundColor: const Color(0xFFF8F9FB),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsetsGeometry.all(16),

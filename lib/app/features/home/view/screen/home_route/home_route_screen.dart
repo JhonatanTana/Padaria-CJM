@@ -18,6 +18,7 @@ class HomeRouteScreen extends StatelessWidget {
           BottomNavigation item = vm.items[vm.selectedIndex];
 
           return Scaffold(
+            backgroundColor: Color(0xFFF8F9FB),
             appBar: AppTopBar(
               title: item.title,
               actions: [

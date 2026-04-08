@@ -10,25 +10,22 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: Navigator.canPop(context)
+          ? IconButton(
+        icon: const Icon(Icons.chevron_left),
+        onPressed: () => Navigator.pop(context),
+      )
+          : null,
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w600,
         ),
       ),
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      centerTitle: true,
-      foregroundColor: Colors.white,
-      flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF1B1B1E), Color(0xFFD7263D)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-      ),
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      foregroundColor: Colors.black,
+      backgroundColor: const Color(0xFFF8F9FB),
       actions: actions ?? [],
     );
   }

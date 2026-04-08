@@ -22,11 +22,29 @@ class CustomerScreen extends StatelessWidget {
         child: Column(
           spacing: 8,
           children: [
-            AppInput(
-              onChanged: vm.setSearchQuery,
-              label: "Procurar cliente",
-              inputType: TextInputType.text,
-              autoFocus: false,
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+              child: TextField(
+                onChanged: vm.setSearchQuery,
+                decoration: InputDecoration(
+                  hintText: "Procurar cliente",
+                  prefixIcon: Icon(Icons.search),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.symmetric(vertical: 14),
+
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                ),
+              ),
             ),
 
             Expanded(

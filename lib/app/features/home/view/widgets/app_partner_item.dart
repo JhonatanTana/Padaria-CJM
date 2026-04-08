@@ -4,90 +4,136 @@ class AppPartnerItem extends StatelessWidget {
   final String name;
   final String balance;
   final bool canSale;
+  final VoidCallback? onTap;
 
   const AppPartnerItem({
     super.key,
     required this.name,
     required this.balance,
     this.canSale = true,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final baseColor = normalize(getAvatarColor(name));
+    final bgColor = lighten(baseColor, 0.35);
+
     return Card(
       margin: EdgeInsets.zero,
-      elevation: 2,
+      elevation: 0,
       color: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(14),
       ),
-      child: SizedBox(
-        width: double.infinity,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
-            spacing: 8,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                spacing: 12,
-                children: [
-                  SizedBox(
-                    width: 1,
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: bgColor,
+                child: Text(
+                  getNameInitials(name),
+                  style: TextStyle(
+                    color: baseColor,
+                    fontWeight: FontWeight.w600,
                   ),
-                  /*CircleAvatar(
-                    backgroundColor: Color.fromARGB(255, 117, 119, 121),
-                  ),*/
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          color: Color(0xFF005A6F),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        balance,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                ),
               ),
 
+              const SizedBox(width: 12),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      balance,
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /// Badge + Chevron
               Row(
-                spacing: 8,
                 children: [
-                  Visibility(
-                    visible: !canSale,
-                    child: Badge(
-                      backgroundColor: const Color(0xFFFFE5E7), // vermelho bem claro
-                      textColor: const Color(0xFFD7263D),       // vermelho forte
-                      label: Text(
+                  if (!canSale)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFE5E7),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Text(
                         "NÃO VENDER",
                         style: TextStyle(
-                          fontSize: 9
-                        )),
-                      padding: EdgeInsets.all(8),
+                          color: Color(0xFFD7263D),
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsGeometry.all(8),
-                    child: Icon(Icons.chevron_right)
+
+                  const SizedBox(width: 8),
+
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey.shade400,
                   ),
                 ],
               )
             ],
           ),
         ),
-      )
+      ),
     );
+  }
+
+  String getNameInitials(String name) {
+    return name
+        .trim()
+        .split(RegExp(r'\s+'))
+        .take(2)
+        .map((w) => w[0].toUpperCase())
+        .join();
+  }
+
+  Color getAvatarColor(String name) {
+    final hash = name.hashCode;
+    final r = (hash & 0xFF0000) >> 16;
+    final g = (hash & 0x00FF00) >> 8;
+    final b = (hash & 0x0000FF);
+
+    return Color.fromARGB(255, r, g, b);
+  }
+
+  Color lighten(Color color, [double amount = .85]) {
+    final hsl = HSLColor.fromColor(color);
+    final light = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    return light.toColor();
+  }
+
+  Color normalize(Color color) {
+    final hsl = HSLColor.fromColor(color);
+    return hsl.withSaturation(0.6).withLightness(0.5).toColor();
   }
 }
