@@ -29,6 +29,62 @@ class CustomerScreen extends StatelessWidget {
             ),
 
             Expanded(
+              child: vm.isLoading
+                  ? const Center(
+                child: CircularProgressIndicator(),
+              )
+                  : ListView.builder(
+                itemCount: vm.customers.length,
+                itemBuilder: (context, index) {
+                  Customer customer = vm.customers[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Dismissible(
+                      key: Key(customer.id!),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) async {
+                        return await AppConfirmationDialog.show(
+                          context: context,
+                          title: "Confirmar",
+                          content: "Deseja realmente excluir o cliente ${customer.name}?",
+                          confirmText: "Excluir",
+                        );
+                      },
+                      onDismissed: (direction) =>
+                          vm.deleteCustomer(customer.id!),
+                      background: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        alignment: Alignment.centerRight,
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 20),
+                        child:
+                        const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouter.movements,
+                          arguments: customer.id,
+                        ),
+                        onLongPress: () =>
+                            vm.openCustomerModal(context, vm,
+                                customer: customer),
+                        child: AppPartnerItem(
+                          name: customer.name,
+                          balance: vm.currencyFormatter(customer.balance),
+                          canSale: customer.canSale,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            /*Expanded(
               child: ListView.builder(
                 itemCount: vm.customers.length,
                 itemBuilder: (context, index) {
@@ -70,7 +126,7 @@ class CustomerScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
+            ),*/
           ],
         ),
       ),

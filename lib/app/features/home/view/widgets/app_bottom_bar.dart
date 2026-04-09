@@ -16,7 +16,7 @@ class AppBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(12),
+      margin: const EdgeInsets.fromLTRB(12, 0, 12, 24),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white,

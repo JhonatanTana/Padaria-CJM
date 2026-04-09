@@ -44,6 +44,10 @@ class MovementsViewModel extends ChangeNotifier {
     _subscription?.cancel();
     _subscription = _service.getMovementsByCustomerId(customerId!).listen((newList) {
       movements = newList;
+
+      movements.sort((a, b) =>
+          b.date.compareTo(a.date));
+
       notifyListeners();
     }, onError: (e) {
       // TODO: Implementar mensagem de erro
@@ -53,18 +57,6 @@ class MovementsViewModel extends ChangeNotifier {
   String currencyFormatter(double amount) {
     final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
     return formatCurrency.format(amount);
-  }
-
-  String dateFormatter(DateTime date, bool includeTime) {
-    late DateFormat formatter;
-
-    if (includeTime) {
-      formatter = DateFormat('dd/MM/yyyy HH:mm');
-    } else {
-      formatter = DateFormat('dd/MM/yyyy');
-    }
-
-    return formatter.format(date);
   }
 
   double get totalBalance {

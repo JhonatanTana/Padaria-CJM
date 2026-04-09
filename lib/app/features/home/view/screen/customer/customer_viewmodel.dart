@@ -13,6 +13,7 @@ class CustomerViewModel extends ChangeNotifier {
   List<Customer> customers = [];
   String _searchQuery = "";
   StreamSubscription<List<Customer>>? _subscription;
+  bool isLoading = false;
 
   CustomerViewModel() {
     _startListening();
@@ -26,6 +27,9 @@ class CustomerViewModel extends ChangeNotifier {
 
   void _startListening() {
     _subscription?.cancel();
+
+    isLoading = true;
+
     _subscription = _service.getCustomers().listen((newList) {
       _allCustomers = newList;
 
@@ -34,6 +38,11 @@ class CustomerViewModel extends ChangeNotifier {
       } else {
         _filterCustomers();
       }
+
+      customers.sort((a, b) =>
+          a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+      isLoading = false;
       notifyListeners();
     });
   }
