@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
-import 'package:padaria_cjm2/app/features/home/view/widgets/app_input.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_item.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/customer.dart';
+import '../../widgets/app_search.dart';
 import 'customer_viewmodel.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -23,28 +23,9 @@ class CustomerScreen extends StatelessWidget {
           spacing: 8,
           children: [
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              child: TextField(
-                onChanged: vm.setSearchQuery,
-                decoration: InputDecoration(
-                  hintText: "Procurar cliente",
-                  prefixIcon: Icon(Icons.search),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(vertical: 14),
-
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                ),
-              ),
+            AppSearch(
+              title: "Pesquisar cliente",
+              onChanged: vm.setSearchQuery,
             ),
 
             Expanded(

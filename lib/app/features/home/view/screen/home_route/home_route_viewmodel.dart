@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/model/bottom_navigation.dart';
+import 'package:padaria_cjm2/app/features/home/view/screen/product/product_screen.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/supplier/supplier_screen.dart';
 
 import '../../../router/app_router.dart';
@@ -16,6 +17,7 @@ class HomeRouteViewModel extends ChangeNotifier {
     HomeScreen(key: ValueKey(0)),
     CustomerScreen(key: ValueKey(1)),
     SupplierScreen(key: ValueKey(2)),
+    ProductScreen(key: ValueKey(3)),
   ];
 
   List<BottomNavigation> items = [
@@ -33,7 +35,13 @@ class HomeRouteViewModel extends ChangeNotifier {
     ),
     BottomNavigation(
       title: "Fornecedores",
-      icon: Icon(Icons.groups),
+      icon: Icon(Icons.person_4),
+      actionIcon: Icon(Icons.add),
+      action: null
+    ),
+    BottomNavigation(
+      title: "Produtos",
+      icon: Icon(Icons.inventory_2),
       actionIcon: Icon(Icons.add),
       action: null
     ),

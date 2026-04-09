@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_search.dart';
 
 class SupplierScreen extends StatelessWidget {
   const SupplierScreen({super.key});
@@ -10,7 +11,14 @@ class SupplierScreen extends StatelessWidget {
       width: double.infinity,
       child: Padding(
           padding: EdgeInsets.all(8),
-          child: const Placeholder()
+          child: Column(
+            spacing: 8,
+            children: [
+              AppSearch(
+                title: "Pesquisar fornecedor",
+              ),
+            ],
+          )
       )
     );
   }

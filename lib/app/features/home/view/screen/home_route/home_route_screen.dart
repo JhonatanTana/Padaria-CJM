@@ -26,7 +26,7 @@ class HomeRouteScreen extends StatelessWidget {
                   IconButton(
                     icon: item.actionIcon,
                     onPressed: () {
-                      Navigator.pushNamed(context, item.action!);
+                      Navigator.pushReplacementNamed(context, item.action!);
                     },
                   ),
               ],

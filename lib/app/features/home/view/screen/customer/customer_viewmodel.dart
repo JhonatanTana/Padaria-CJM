@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import '../../../model/customer.dart';
 import '../../../services/customer_service.dart';
 import '../../widgets/app_input.dart';
-import '../../widgets/app_text.dart';
 
 class CustomerViewModel extends ChangeNotifier {
   final _service = CustomerService();
@@ -87,78 +86,114 @@ class CustomerViewModel extends ChangeNotifier {
       context: context,
       showDragHandle: true,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       builder: (context) => StatefulBuilder(
-        builder: (context, setState) => Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 16,
-            right: 16,
-            top: 16,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppText(
-                text: customer == null ? "Novo Cliente" : "Editar Cliente",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+        builder: (context, setState) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(24),
               ),
-              const SizedBox(height: 16),
-              AppInput(
-                controller: nameController,
-                label: "Nome",
-                inputType: TextInputType.text,
-                autoFocus: true,
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                left: 20,
+                right: 20,
+                top: 20,
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                spacing: 8,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Pode vender?"),
-                  Transform.scale(
-                    scale: 0.8,
-                    child: Switch(
-                      value: canSale,
-                      activeTrackColor: Color(0xFFD7263D),
-                      onChanged: (value) {
-                        setState(() {
-                          canSale = value;
-                        });
+                  Center(
+                    child: Text(
+                      customer == null ? "Novo Cliente" : "Editar Cliente",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  AppInput(
+                    controller: nameController,
+                    label: "Nome",
+                    inputType: TextInputType.text,
+                    autoFocus: true,
+                  ),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Pode vender?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Switch.adaptive(
+                          value: canSale,
+                          activeTrackColor: const Color(0xFFD7263D).withValues(alpha: .8),
+                          thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+                            if (states.contains(WidgetState.selected)) return Colors.white;
+                            return Colors.grey;
+                          }),
+                          onChanged: (value) => setState(() => canSale = value),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD7263D),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        elevation: 2,
+                      ),
+                      onPressed: () async {
+                        if (nameController.text.isNotEmpty) {
+                          if (customer == null) {
+                            await vm.addCustomer(nameController.text, canSale);
+                          } else {
+                            customer.name = nameController.text;
+                            customer.canSale = canSale;
+                            await vm.updateCustomer(customer);
+                          }
+                          if (context.mounted) Navigator.pop(context);
+                        }
                       },
+                      child: const Text(
+                        "Salvar",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFD7263D)),
-                  onPressed: () async {
-                    if (nameController.text.isNotEmpty) {
-                      if (customer == null) {
-                        await vm.addCustomer(nameController.text, canSale);
-                      } else {
-                        customer.name = nameController.text;
-                        customer.canSale = canSale;
-                        await vm.updateCustomer(customer);
-                      }
-                      if (context.mounted) Navigator.pop(context);
-                    }
-                  },
-                  child: const AppText(
-                    text: "Salvar",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
