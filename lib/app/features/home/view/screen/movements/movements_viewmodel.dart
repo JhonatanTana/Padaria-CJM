@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 import 'package:padaria_cjm2/app/features/home/services/customer_service.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_alert_dialog.dart';
 
+import '../../../../../../main.dart';
 import '../../../model/customer.dart';
 import '../../../services/movements_service.dart';
 
@@ -34,7 +36,12 @@ class MovementsViewModel extends ChangeNotifier {
       customer = await _customerService.getCustomerById(customerId!);
       notifyListeners();
     } on Exception catch (e) {
-      //TODO: Implemetar mensagem de erro
+      AppAlertDialog.show(
+        context: navigatorKey.currentContext!,
+        title: "Erro",
+        content: e.toString(),
+        isError: true,
+      );
     }
   }
 
@@ -50,7 +57,12 @@ class MovementsViewModel extends ChangeNotifier {
 
       notifyListeners();
     }, onError: (e) {
-      // TODO: Implementar mensagem de erro
+      AppAlertDialog.show(
+        context: navigatorKey.currentContext!,
+        title: "Erro",
+        content: "Erro ao carregar movimentos",
+        isError: true,
+      );    
     });
   }
 

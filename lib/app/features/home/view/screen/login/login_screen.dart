@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
     final vm = context.watch<LoginViewModel>();
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FB),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
