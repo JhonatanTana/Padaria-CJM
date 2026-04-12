@@ -18,8 +18,7 @@ class MovementsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: vm.customer?.name ?? "Movimentações",
-        actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => {})],
+        title: vm.customer?.name ?? "Movimentações"
       ),
       backgroundColor: AppColors.background,
       body: SafeArea(

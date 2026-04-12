@@ -43,6 +43,8 @@ class AppPartnerItem extends StatelessWidget {
                   style: TextStyle(
                     color: baseColor,
                     fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                    fontSize: 20
                   ),
                 ),
               ),
@@ -57,7 +59,8 @@ class AppPartnerItem extends StatelessWidget {
                       name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 15,
+                        fontSize: 16,
+                        fontFamily: 'Arial'
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -65,7 +68,8 @@ class AppPartnerItem extends StatelessWidget {
                       balance,
                       style: TextStyle(
                         color: Colors.grey.shade600,
-                        fontSize: 13,
+                        fontSize: 14,
+                        fontFamily: 'Arial'
                       ),
                     ),
                   ],
@@ -91,6 +95,7 @@ class AppPartnerItem extends StatelessWidget {
                           color: AppColors.primary,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
+                          fontFamily: 'Arial'
                         ),
                       ),
                     ),

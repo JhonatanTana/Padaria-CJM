@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Center(
           child: Column(
-            spacing: 20,
+            spacing: 8,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/logo.png"),
@@ -27,17 +27,28 @@ class LoginScreen extends StatelessWidget {
               AppInput(
                 controller: vm.email,
                 label: "Email",
-                inputType: TextInputType.emailAddress,
+                keyboardType: TextInputType.emailAddress,
+                prefixIcon: Icons.email,
+                validator: AppInput.combine([
+                  AppInput.required(),
+                  AppInput.email(),
+                ]),
               ),
 
               AppInput(
                 controller: vm.password,
                 label: "Senha",
                 obscureText: true,
-                inputType: TextInputType.visiblePassword,
+                keyboardType: TextInputType.visiblePassword,
+                prefixIcon: Icons.lock,
+                validator: AppInput.combine([
+                  AppInput.required(),
+                  AppInput.password(),
+                ]),
               ),
 
               AppButton(
+                isLoading: vm.isLoading,
                 text: vm.isLoading ? "Carregando..." : "Entrar",
                 onPressed: () => vm.login(context),
               )

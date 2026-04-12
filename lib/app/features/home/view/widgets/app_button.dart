@@ -5,8 +5,9 @@ import '../../../../core/constants/app_colors.dart';
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final bool isLoading;
 
-  const AppButton({super.key, required this.text, this.onPressed});
+  const AppButton({super.key, required this.text, this.onPressed, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,36 @@ class AppButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
-        child: Text(text),
+        child: Row(
+          spacing: 16,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Visibility(
+              visible: isLoading,
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              )
+            ),
+
+            Text(
+              text,
+              style: const TextStyle(
+                fontFamily: 'Arial',
+                fontSize: 16,
+                fontWeight: FontWeight.w600
+              )
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -61,7 +61,8 @@ class AppBottomBar extends StatelessWidget {
                       style: const TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w600,
-                          fontSize: 10
+                          fontSize: 10,
+                          fontFamily: 'Arial'
                       ),
                     ),
                   ]

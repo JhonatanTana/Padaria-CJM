@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       title: 'Padaria CJM',
       theme: ThemeData(
+        fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFD7263D)),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(

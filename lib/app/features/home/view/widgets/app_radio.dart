@@ -38,7 +38,14 @@ class AppRadio<T> extends StatelessWidget {
                       return Colors.grey;
                     }),
                   ),
-                  Text(labels[i]),
+                  Text(
+                    labels[i],
+                    style: TextStyle(
+                      color: Colors.grey.shade900,
+                      fontSize: 16,
+                      fontFamily: "Arial"
+                    ),
+                  ),
                 ],
               ),
             ),

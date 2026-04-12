@@ -94,7 +94,6 @@ class CustomerViewModel extends ChangeNotifier {
 
     showModalBottomSheet(
       context: context,
-      showDragHandle: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => StatefulBuilder(
@@ -123,18 +122,17 @@ class CustomerViewModel extends ChangeNotifier {
                       customer == null ? "Novo Cliente" : "Editar Cliente",
                       style: const TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Arial"
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 24),
-
                   AppInput(
                     controller: nameController,
                     label: "Nome",
-                    inputType: TextInputType.text,
-                    autoFocus: true,
+                    keyboardType: TextInputType.text,
+                    autofocus: true,
                   ),
 
                   Container(
@@ -152,6 +150,8 @@ class CustomerViewModel extends ChangeNotifier {
                           "Pode vender?",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            fontFamily: "Arial"
                           ),
                         ),
                         Switch.adaptive(

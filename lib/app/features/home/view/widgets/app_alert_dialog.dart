@@ -51,13 +51,17 @@ class AppAlertDialog extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
+              fontFamily: 'Arial'
             ),
           ),
         ],
       ),
       content: AppText(
         text: content,
-        style: const TextStyle(fontSize: 14),
+        style: const TextStyle(
+          fontSize: 14,
+          fontFamily: 'Arial'
+        ),
       ),
       actions: [
         SizedBox(
@@ -72,7 +76,7 @@ class AppAlertDialog extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
             child: AppText(
               text: buttonText,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontFamily: 'Arial'),
             ),
           ),
         ),

@@ -57,9 +57,9 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
       appBar: const AppTopBar(title: "Nova Movimentação"),
       backgroundColor: AppColors.background,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
-          spacing: 8,
+          spacing: 4,
           children: [
             AppRadio<bool>(
               values: const [false, true],
@@ -75,18 +75,21 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
               controller: vm.dateController,
               readOnly: true,
               onTap: () => _selectDate(vm),
-              suffixIcon: const Icon(Icons.calendar_today, color: AppColors.primary),
+              suffixIcon: Icon(Icons.calendar_today, color: Colors.grey.shade800),
             ),
 
             AppInput(
               label: "Valor",
-              inputType: TextInputType.number,
+              keyboardType: TextInputType.number,
               controller: vm.amountController,
+              validator: AppInput.combine([
+                AppInput.required(),
+              ]),
             ),
 
             AppInput(
               label: "Observações",
-              inputType: TextInputType.multiline,
+              keyboardType: TextInputType.multiline,
               controller: vm.notesController,
             ),
 
