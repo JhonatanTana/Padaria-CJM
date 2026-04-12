@@ -12,7 +12,7 @@ class MovementsService {
         .snapshots()
         .map((snapshot) {
           return snapshot.docs
-              .map((doc) => Movement.fromMap(doc.data()))
+              .map((doc) => Movement.fromMap(doc.data(), doc.id))
               .toList();
         });
   }
@@ -23,5 +23,23 @@ class MovementsService {
         .doc(customerId)
         .collection('movimentacoes')
         .add(movement.toJSON());
+  }
+
+  Future<void> updateMovement(String customerId, Movement movement) async {
+    await _storage
+        .collection('clientes')
+        .doc(customerId)
+        .collection('movimentacoes')
+        .doc(movement.id)
+        .update(movement.toJSON());
+  }
+
+  Future<void> deleteMovement(String customerId, String movementId) async {
+    await _storage
+        .collection('clientes')
+        .doc(customerId)
+        .collection('movimentacoes')
+        .doc(movementId)
+        .delete();
   }
 }

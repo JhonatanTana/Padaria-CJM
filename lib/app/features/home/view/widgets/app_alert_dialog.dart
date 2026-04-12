@@ -43,24 +43,26 @@ class AppAlertDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: Colors.white,
       title: Column(
+        spacing: 8,
         children: [
-          Icon(icon, color: iconColor, size: 48),
-          const SizedBox(height: 16),
+          Icon(icon, color: iconColor, size: 56),
+
           AppText(
             text: title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: 20,
               fontFamily: 'Arial'
             ),
           ),
         ],
       ),
-      content: AppText(
-        text: content,
+      content: Text(
+        content,
+        textAlign: TextAlign.center,
         style: const TextStyle(
-          fontSize: 14,
-          fontFamily: 'Arial'
+          fontSize: 16,
+          fontFamily: 'Arial',
         ),
       ),
       actions: [

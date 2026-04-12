@@ -93,6 +93,8 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
               controller: vm.notesController,
             ),
 
+            SizedBox(height: 4,),
+
             Visibility(
               visible: vm.isSale,
               child: AppDropdown<String>(

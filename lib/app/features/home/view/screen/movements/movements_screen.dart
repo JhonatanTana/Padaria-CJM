@@ -23,7 +23,7 @@ class MovementsScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsetsGeometry.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             spacing: 8,
             children: [
@@ -34,11 +34,11 @@ class MovementsScreen extends StatelessWidget {
                     Movement movement = vm.movements[index];
 
                     return Padding(
-                      padding: EdgeInsetsGeometry.symmetric(horizontal: 0, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                       child: AppMovementItem(
                           item: movement,
                           onTap: () => vm.openNotesModal(context, movement.notes),
-                          onLongPress: () => vm.openOptionsMenu(context)
+                          onLongPress: () => vm.openOptionsMenu(context, movement)
                       ),
                     );
                   },
@@ -48,7 +48,7 @@ class MovementsScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppText(text: "Total"),
+                  const AppText(text: "Total"),
                   AppText(
                     text: vm.currencyFormatter(vm.customer != null ? vm.totalBalance : 0)
                   ),
@@ -65,7 +65,11 @@ class MovementsScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
           ),
-          onPressed: () => Navigator.pushNamed(context, AppRouter.movementForm, arguments: vm.customerId),
+          onPressed: () => Navigator.pushNamed(
+            context, 
+            AppRouter.movementForm, 
+            arguments: {'customerId': vm.customerId}
+          ),
           child: const Icon(Icons.add, color: Colors.white),
         ),
       ),

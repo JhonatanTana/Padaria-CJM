@@ -79,7 +79,7 @@ class AppMovementItem extends StatelessWidget {
 
   String dateFormatter(DateTime date, bool includeTime) {
     late DateFormat formatter;
-    date = date.subtract(Duration(hours: 3));
+    //date = date.subtract(Duration(hours: 3));
 
     if (includeTime) {
       formatter = DateFormat('dd/MM/yyyy HH:mm');

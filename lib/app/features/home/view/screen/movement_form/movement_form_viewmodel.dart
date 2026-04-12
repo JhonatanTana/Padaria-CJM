@@ -15,6 +15,7 @@ class MovementFormViewModel extends ChangeNotifier {
   final _customerService = CustomerService();
 
   final String customerId;
+  final Movement? movementToEdit;
 
   final dateController = TextEditingController();
   final amountController = TextEditingController();
@@ -23,6 +24,7 @@ class MovementFormViewModel extends ChangeNotifier {
   String? paymentMethod = "";
 
   late Timestamp selectedTimestamp;
+  double _oldAmount = 0;
 
   bool get isSale => _isSale;
 
@@ -31,22 +33,32 @@ class MovementFormViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  MovementFormViewModel({required this.customerId}) {
-    final brasil = tz.getLocation('America/Sao_Paulo');
-    final now = tz.TZDateTime.now(brasil);
+  MovementFormViewModel({required this.customerId, this.movementToEdit}) {
+    if (movementToEdit != null) {
+      _oldAmount = movementToEdit!.amount;
+      _isSale = movementToEdit!.isPayment;
+      amountController.text = movementToEdit!.amount.abs().toString();
+      notesController.text = movementToEdit!.notes ?? "";
+      paymentMethod = movementToEdit!.paymentMethod;
+      selectedTimestamp = movementToEdit!.date;
+      dateController.text = DateFormat('dd/MM/yyyy').format(selectedTimestamp.toDate());
+    } else {
+      final brasil = tz.getLocation('America/Sao_Paulo');
+      final now = tz.TZDateTime.now(brasil);
 
-    final date = tz.TZDateTime(
-      brasil,
-      now.year,
-      now.month,
-      now.day,
-      now.hour,
-      now.minute,
-      now.second,
-    );
+      final date = tz.TZDateTime(
+        brasil,
+        now.year,
+        now.month,
+        now.day,
+        now.hour,
+        now.minute,
+        now.second,
+      );
 
-    dateController.text = DateFormat('dd/MM/yyyy').format(date);
-    selectedTimestamp = Timestamp.fromDate(date);
+      dateController.text = DateFormat('dd/MM/yyyy').format(date);
+      selectedTimestamp = Timestamp.fromDate(date);
+    }
   }
 
   void _errorMessage(String title, String message) {
@@ -81,6 +93,7 @@ class MovementFormViewModel extends ChangeNotifier {
 
   void onSubmit() async {
     Movement item = Movement(
+        id: movementToEdit?.id,
         isPayment: isSale,
         date: selectedTimestamp,
         amount: _getAmount(),
@@ -88,7 +101,12 @@ class MovementFormViewModel extends ChangeNotifier {
         paymentMethod: paymentMethod
     );
 
-    await _saveMovement(item);
+    if (movementToEdit != null) {
+      await _updateMovement(item);
+    } else {
+      await _saveMovement(item);
+    }
+    
     await _updateBalance();
 
     Navigator.pop(navigatorKey.currentContext!);
@@ -99,6 +117,14 @@ class MovementFormViewModel extends ChangeNotifier {
       await _service.addMovement(customerId, movement);
     } on Exception catch (e) {
       _errorMessage("Erro ao salvar a movimentação", e.toString());
+    }
+  }
+
+  Future<void> _updateMovement(Movement movement) async {
+    try {
+      await _service.updateMovement(customerId, movement);
+    } on Exception catch (e) {
+      _errorMessage("Erro ao editar a movimentação", e.toString());
     }
   }
 
@@ -120,7 +146,12 @@ class MovementFormViewModel extends ChangeNotifier {
     if(customer == null) return;
 
     try {
-      customer.balance += _getAmount();
+      if (movementToEdit != null) {
+        customer.balance = (customer.balance - _oldAmount) + _getAmount();
+      } else {
+        customer.balance += _getAmount();
+      }
+
       await _customerService.updateBalance(customer.id!, customer.balance);
 
     } on Exception catch(e) {

@@ -32,7 +32,7 @@ class CustomerScreen extends StatelessWidget {
             Expanded(
               child: vm.isLoading
                   ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: AppColors.primary),
               )
                   : ListView.builder(
                 itemCount: vm.customers.length,

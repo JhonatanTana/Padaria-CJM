@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_colors.dart';
-
 class AppDropdown<T> extends StatefulWidget {
   final List<T> items;
   final T? value;
@@ -23,46 +21,62 @@ class AppDropdown<T> extends StatefulWidget {
 }
 
 class _AppDropdownState<T> extends State<AppDropdown<T>> {
-  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-
-    _focusNode.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isFocused = _focusNode.hasFocus;
-
     return DropdownButtonFormField<T>(
       initialValue: widget.value,
       isExpanded: true,
-      icon: const Icon(Icons.keyboard_arrow_down, color: AppColors.primary),
-      dropdownColor: const Color(0xFFF8F9FB),
-      focusColor: AppColors.primary,
+      icon: const Icon(
+        Icons.keyboard_arrow_down,
+        color: Colors.grey,
+      ),
+      dropdownColor: Colors.white,
+      elevation: 2,
+
       decoration: InputDecoration(
-        labelText: widget.label,
-        labelStyle: const TextStyle(
-          color: Colors.grey,
+        hintText: widget.label,
+        hintStyle: const TextStyle(fontFamily: 'Arial'),
+
+        filled: true,
+        fillColor: Colors.white,
+
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
         ),
-        floatingLabelStyle: const TextStyle(
-          color: AppColors.primary,
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide.none,
         ),
-        border: const OutlineInputBorder(),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primary, width: 2),
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(
+            color: Colors.grey,
+          ),
+        ),
+
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(
+            color: Colors.grey,
+            width: 1.5,
+          ),
         ),
       ),
+
       items: widget.items.map((item) {
         return DropdownMenuItem<T>(
           value: item,
@@ -75,6 +89,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
           ),
         );
       }).toList(),
+
       onChanged: widget.onChanged,
     );
   }

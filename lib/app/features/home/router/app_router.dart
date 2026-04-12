@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/home_route/home_route_screen.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/movement_form/movement_form_viewmodel.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/movements/movements_screen.dart';
@@ -24,15 +25,21 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
             create: (_) => MovementsViewModel(customerId: customerId),
-            child: MovementsScreen(),
+            child: const MovementsScreen(),
           ),
         );
       case movementForm:
-        final customerId = settings.arguments as String;
+        final args = settings.arguments as Map<String, dynamic>;
+        final customerId = args['customerId'] as String;
+        final movement = args['movement'] as Movement?;
+        
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => MovementFormViewModel(customerId: customerId),
-            child: MovementFormScreen(),
+            create: (_) => MovementFormViewModel(
+              customerId: customerId,
+              movementToEdit: movement,
+            ),
+            child: const MovementFormScreen(),
           ),
         );
       default:
