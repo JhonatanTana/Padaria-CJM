@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'app/features/home/router/app_router.dart';
 import 'app/features/home/view/screen/login/login_viewmodel.dart';
 import 'firebase_options.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -15,6 +19,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('America/Sao_Paulo'));
+  
   runApp(
     MultiProvider(
       providers: [
@@ -45,6 +52,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRouter.login,
       onGenerateRoute: AppRouter.generateRoute,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
+import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/movements/movements_viewmodel.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_movement_item.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_text.dart';
@@ -54,6 +55,17 @@ class MovementsScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 48),
+        child: FloatingActionButton(
+          backgroundColor: Color(0xFFD7263D),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+          onPressed: () => Navigator.pushNamed(context, AppRouter.movementForm, arguments: vm.customerId),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );

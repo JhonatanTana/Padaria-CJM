@@ -5,14 +5,16 @@ class Movement {
   bool isPayment;
   double amount;
   String? notes;
+  String? paymentMethod;
 
-  Movement({required this.date, required this.isPayment, required this.amount, this.notes});
+  Movement({required this.date, required this.isPayment, required this.amount, this.notes, this.paymentMethod});
 
   Movement.fromMap(Map<String, dynamic> map)
     : date = map['data'],
     isPayment = map['pagamento'],
     amount = map['valor'],
-    notes = map['notas'];
+    notes = map['notas'],
+    paymentMethod = map['paymentMethod'];
 
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -20,6 +22,7 @@ class Movement {
     data['pagamento'] = isPayment;
     data['valor'] = amount;
     data['notas'] = notes;
+    data['paymentMethod'] = paymentMethod;
     return data;
   }
 }

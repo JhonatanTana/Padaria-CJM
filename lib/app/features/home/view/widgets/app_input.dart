@@ -7,6 +7,10 @@ class AppInput extends StatefulWidget {
   final bool obscureText;
   final ValueChanged<String>? onChanged;
   final bool autoFocus;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final Widget? suffixIcon;
+  final double? height;
 
   const AppInput({
     super.key,
@@ -16,6 +20,10 @@ class AppInput extends StatefulWidget {
     this.obscureText = false,
     this.onChanged,
     this.autoFocus = false,
+    this.readOnly = false,
+    this.onTap,
+    this.suffixIcon,
+    this.height = 1
   });
 
   @override
@@ -52,26 +60,31 @@ class _AppInputState extends State<AppInput> {
       controller: widget.controller,
       obscureText: _obscureText,
       keyboardType: widget.inputType,
-      cursorColor: Color(0xFFD7263D),
+      readOnly: widget.readOnly,
+      onTap: widget.onTap,
+      cursorColor: const Color(0xFFD7263D),
       decoration: InputDecoration(
         labelText: widget.label,
         border: const OutlineInputBorder(),
         labelStyle: TextStyle(
-          color: isFocused ? Color(0xFFD7263D) : Colors.grey,
+          color: isFocused ? const Color(0xFFD7263D) : Colors.grey,
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFD7263D), width: 2),
         ),
-        suffixIcon: widget.obscureText ? IconButton(
+        suffixIcon: widget.suffixIcon ?? (widget.obscureText ? IconButton(
           icon: Icon( _obscureText ? Icons.visibility : Icons.visibility_off ),
           onPressed: () {
             setState(() {
               _obscureText = !_obscureText;
             });
           },
-        ) : null,
+        ) : null),
       ),
       autofocus: widget.autoFocus,
+      style: TextStyle(
+        height: widget.height,
+      ),
     );
   }
 }

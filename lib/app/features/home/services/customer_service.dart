@@ -33,4 +33,8 @@ class CustomerService {
   Future<void> deleteCustomer(String id) async {
     await _storage.collection('clientes').doc(id).delete();
   }
+
+  Future<void> updateBalance(String id, double balance) {
+    return _storage.collection('clientes').doc(id).update({'balance': balance});
+  }
 }

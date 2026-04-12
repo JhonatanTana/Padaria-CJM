@@ -17,7 +17,7 @@ class LoginViewModel extends ChangeNotifier {
     _init();
   }
 
-  toggleView() {
+  void toggleView() {
     obscureText = !obscureText;
     notifyListeners();
   }

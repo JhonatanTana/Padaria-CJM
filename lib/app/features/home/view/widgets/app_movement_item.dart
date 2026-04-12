@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class AppMovementItem extends StatelessWidget {
   final Movement item;
@@ -78,6 +79,7 @@ class AppMovementItem extends StatelessWidget {
 
   String dateFormatter(DateTime date, bool includeTime) {
     late DateFormat formatter;
+    date = date.subtract(Duration(hours: 3));
 
     if (includeTime) {
       formatter = DateFormat('dd/MM/yyyy HH:mm');

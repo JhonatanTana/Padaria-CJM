@@ -16,4 +16,12 @@ class MovementsService {
               .toList();
         });
   }
+
+  Future<void> addMovement(String customerId, Movement movement) async {
+    await _storage
+        .collection('clientes')
+        .doc(customerId)
+        .collection('movimentacoes')
+        .add(movement.toJSON());
+  }
 }
