@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_input.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/constants/app_colors.dart';
 import '../../widgets/app_button.dart';
 import 'login_viewmodel.dart';
 
@@ -13,7 +14,7 @@ class LoginScreen extends StatelessWidget {
     final vm = context.watch<LoginViewModel>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(

@@ -7,6 +7,8 @@ import 'package:padaria_cjm2/app/features/home/view/widgets/app_text.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_top_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/constants/app_colors.dart';
+
 class MovementsScreen extends StatelessWidget {
   const MovementsScreen({super.key});
 
@@ -19,7 +21,7 @@ class MovementsScreen extends StatelessWidget {
         title: vm.customer?.name ?? "Movimentações",
         actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => {})],
       ),
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsetsGeometry.all(16),
@@ -60,7 +62,7 @@ class MovementsScreen extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 48),
         child: FloatingActionButton(
-          backgroundColor: Color(0xFFD7263D),
+          backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
           ),

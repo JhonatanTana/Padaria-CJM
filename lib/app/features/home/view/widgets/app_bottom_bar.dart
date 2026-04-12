@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/core/constants/app_colors.dart';
 import 'package:padaria_cjm2/app/features/home/model/bottom_navigation.dart';
 
 class AppBottomBar extends StatelessWidget {
@@ -52,13 +53,13 @@ class AppBottomBar extends StatelessWidget {
                 children: [
                   Icon(
                     (item.icon).icon,
-                    color: isSelected ? const Color(0xFFD7263D) : Colors.grey,
+                    color: isSelected ? AppColors.primary : Colors.grey,
                   ),
                   if (isSelected) ...[
                     Text(
                       item.title,
                       style: const TextStyle(
-                          color: Color(0xFFD7263D),
+                          color: AppColors.primary,
                           fontWeight: FontWeight.w600,
                           fontSize: 10
                       ),
@@ -72,17 +73,4 @@ class AppBottomBar extends StatelessWidget {
       ),
     );
   }
-    /*return BottomNavigationBar(
-      items: [
-        for (var item in items)
-          BottomNavigationBarItem(
-            icon: item.icon,
-            label: item.title,
-          ),
-      ],
-      currentIndex: selectedIndex,
-      selectedItemColor: const Color(0xFFD7263D),
-      onTap: onItemTapped,
-    );
-  }*/
 }

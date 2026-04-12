@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class AppPartnerItem extends StatelessWidget {
   final String name;
   final String balance;
@@ -86,7 +88,7 @@ class AppPartnerItem extends StatelessWidget {
                       child: const Text(
                         "NÃO VENDER",
                         style: TextStyle(
-                          color: Color(0xFFD7263D),
+                          color: AppColors.primary,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),

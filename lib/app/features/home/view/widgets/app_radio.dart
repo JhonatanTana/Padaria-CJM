@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class AppRadio<T> extends StatelessWidget {
   final List<T> values;
   final List<String> labels;
@@ -31,7 +33,7 @@ class AppRadio<T> extends StatelessWidget {
                     value: values[i],
                     fillColor: WidgetStateProperty.resolveWith((states) {
                       if (states.contains(WidgetState.selected)) {
-                        return const Color(0xFFD7263D);
+                        return AppColors.primary;
                       }
                       return Colors.grey;
                     }),

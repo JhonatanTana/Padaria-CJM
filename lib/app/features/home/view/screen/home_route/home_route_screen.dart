@@ -4,6 +4,7 @@ import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_top_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/constants/app_colors.dart';
 import '../../widgets/app_bottom_bar.dart';
 import '../customer/customer_viewmodel.dart';
 import 'home_route_viewmodel.dart';
@@ -33,7 +34,7 @@ class HomeRouteScreen extends StatelessWidget {
             BottomNavigation item = vm.items[vm.selectedIndex];
 
             return Scaffold(
-              backgroundColor: const Color(0xFFF8F9FB),
+              backgroundColor: AppColors.background,
               appBar: AppTopBar(
                 title: item.title,
                 actions: [

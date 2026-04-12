@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/core/constants/app_colors.dart';
 
 class AppInput extends StatefulWidget {
   final TextEditingController? controller;
@@ -62,15 +63,15 @@ class _AppInputState extends State<AppInput> {
       keyboardType: widget.inputType,
       readOnly: widget.readOnly,
       onTap: widget.onTap,
-      cursorColor: const Color(0xFFD7263D),
+      cursorColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: widget.label,
         border: const OutlineInputBorder(),
         labelStyle: TextStyle(
-          color: isFocused ? const Color(0xFFD7263D) : Colors.grey,
+          color: isFocused ?  AppColors.primary : Colors.grey,
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFD7263D), width: 2),
+          borderSide: BorderSide(color: AppColors.primary, width: 2),
         ),
         suffixIcon: widget.suffixIcon ?? (widget.obscureText ? IconButton(
           icon: Icon( _obscureText ? Icons.visibility : Icons.visibility_off ),

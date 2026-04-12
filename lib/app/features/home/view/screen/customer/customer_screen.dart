@@ -4,6 +4,7 @@ import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_item.dar
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/constants/app_colors.dart';
 import '../../../model/customer.dart';
 import '../../widgets/app_search.dart';
 import 'customer_viewmodel.dart';
@@ -16,7 +17,7 @@ class CustomerScreen extends StatelessWidget {
     final vm = context.watch<CustomerViewModel>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -88,7 +89,7 @@ class CustomerScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFD7263D),
+        backgroundColor: AppColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
         ),

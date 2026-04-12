@@ -6,6 +6,7 @@ import 'package:padaria_cjm2/app/features/home/view/widgets/app_input.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_radio.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/constants/app_colors.dart';
 import '../../widgets/app_top_bar.dart';
 
 class MovementFormScreen extends StatefulWidget {
@@ -29,13 +30,13 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: Color(0xFFD7263D),
+              primary: AppColors.primary,
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: const Color(0xFFD7263D),
+                foregroundColor: AppColors.primary,
               ),
             ),
           ),
@@ -54,7 +55,7 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
 
     return Scaffold(
       appBar: const AppTopBar(title: "Nova Movimentação"),
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -74,7 +75,7 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
               controller: vm.dateController,
               readOnly: true,
               onTap: () => _selectDate(vm),
-              suffixIcon: const Icon(Icons.calendar_today, color: Color(0xFFD7263D)),
+              suffixIcon: const Icon(Icons.calendar_today, color: AppColors.primary),
             ),
 
             AppInput(

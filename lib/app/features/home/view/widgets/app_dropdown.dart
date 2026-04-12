@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class AppDropdown<T> extends StatefulWidget {
   final List<T> items;
   final T? value;
@@ -45,20 +47,20 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
     return DropdownButtonFormField<T>(
       initialValue: widget.value,
       isExpanded: true,
-      icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFFD7263D)),
+      icon: const Icon(Icons.keyboard_arrow_down, color: AppColors.primary),
       dropdownColor: const Color(0xFFF8F9FB),
-      focusColor: const Color(0xFFD7263D),
+      focusColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: widget.label,
         labelStyle: const TextStyle(
           color: Colors.grey,
         ),
         floatingLabelStyle: const TextStyle(
-          color: Color(0xFFD7263D),
+          color: AppColors.primary,
         ),
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFD7263D), width: 2),
+          borderSide: BorderSide(color: AppColors.primary, width: 2),
         ),
       ),
       items: widget.items.map((item) {

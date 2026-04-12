@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padaria_cjm2/app/core/constants/app_colors.dart';
 import 'app_text.dart';
 
 class AppAlertDialog extends StatelessWidget {
@@ -30,7 +31,7 @@ class AppAlertDialog extends StatelessWidget {
         title: title,
         content: content,
         buttonText: buttonText,
-        iconColor: isError ? const Color(0xFFD7263D) : Colors.orange,
+        iconColor: isError ? AppColors.primary : Colors.orange,
         icon: isError ? Icons.error_outline : Icons.warning_amber_rounded,
       ),
     );

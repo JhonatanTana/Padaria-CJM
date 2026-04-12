@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -13,7 +15,7 @@ class AppButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFD7263D),
+          backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
         ),
         child: Text(text),
