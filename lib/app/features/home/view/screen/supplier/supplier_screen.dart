@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/model/supplier.dart';
 import 'package:padaria_cjm2/app/features/home/view/screen/supplier/supplier_viewmodel.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_shimmer.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_search.dart';
 import 'package:provider/provider.dart';
 
@@ -31,9 +32,10 @@ class SupplierScreen extends StatelessWidget {
 
               Expanded(
                 child: vm.isLoading
-                    ? const Center(
-                  child: CircularProgressIndicator(color: AppColors.primary),
-                )
+                    ? ListView.builder(
+                        itemCount: 6,
+                        itemBuilder: (context, index) => const AppPartnerShimmer(),
+                      )
                     : ListView.builder(
                   itemCount: vm.suppliers.length,
                   itemBuilder: (context, index) {

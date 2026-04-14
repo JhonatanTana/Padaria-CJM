@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_item.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_shimmer.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -31,9 +32,10 @@ class CustomerScreen extends StatelessWidget {
 
             Expanded(
               child: vm.isLoading
-                  ? const Center(
-                child: CircularProgressIndicator(color: AppColors.primary),
-              )
+                  ? ListView.builder(
+                      itemCount: 6,
+                      itemBuilder: (context, index) => const AppPartnerShimmer(),
+                    )
                   : ListView.builder(
                 itemCount: vm.customers.length,
                 itemBuilder: (context, index) {
