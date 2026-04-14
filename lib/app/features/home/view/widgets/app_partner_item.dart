@@ -4,14 +4,14 @@ import '../../../../core/constants/app_colors.dart';
 
 class AppPartnerItem extends StatelessWidget {
   final String name;
-  final String balance;
+  final String? balance;
   final bool canSale;
   final VoidCallback? onTap;
 
   const AppPartnerItem({
     super.key,
     required this.name,
-    required this.balance,
+    this.balance,
     this.canSale = true,
     this.onTap,
   });
@@ -64,12 +64,15 @@ class AppPartnerItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      balance,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 14,
-                        fontFamily: 'Arial'
+                    Visibility(
+                      visible: balance != null,
+                      child: Text(
+                        balance!,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 14,
+                          fontFamily: 'Arial'
+                        ),
                       ),
                     ),
                   ],

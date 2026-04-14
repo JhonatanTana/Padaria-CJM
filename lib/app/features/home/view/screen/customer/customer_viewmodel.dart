@@ -22,7 +22,6 @@ class CustomerViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _subscription?.cancel();
-    debugPrint("SUCESSO: Conexões do Firebase encerradas para os clientes");
     super.dispose();
   }
 
