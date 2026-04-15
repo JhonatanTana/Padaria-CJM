@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:padaria_cjm2/app/core/constants/currency_formatter.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../../../core/constants/date_formatter.dart';
 
 class AppMovementItem extends StatelessWidget {
   final Movement item;
@@ -49,7 +52,7 @@ class AppMovementItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      dateFormatter(item.date.toDate(), true),
+                      DateFormatter.formatToString(item.date.toDate(), true),
                       style: const TextStyle(
                         fontSize: 13
                       ),
@@ -59,7 +62,7 @@ class AppMovementItem extends StatelessWidget {
               ),
 
               Text(
-                currencyFormatter(item.amount),
+                CurrencyFormatter.format(item.amount),
                 style: TextStyle(
                   fontSize: 15,
                   color: item.isPayment ? Colors.green : Colors.black,
@@ -70,23 +73,5 @@ class AppMovementItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String currencyFormatter(double amount) {
-    final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
-    return formatCurrency.format(amount);
-  }
-
-  String dateFormatter(DateTime date, bool includeTime) {
-    late DateFormat formatter;
-    //date = date.subtract(Duration(hours: 3));
-
-    if (includeTime) {
-      formatter = DateFormat('dd/MM/yyyy HH:mm');
-    } else {
-      formatter = DateFormat('dd/MM/yyyy');
-    }
-
-    return formatter.format(date);
   }
 }

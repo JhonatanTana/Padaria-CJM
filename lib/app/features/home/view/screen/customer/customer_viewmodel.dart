@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../model/customer.dart';
 import '../../../services/customer_service.dart';
+import '../../widgets/app_alert_dialog.dart';
 import '../../widgets/app_input.dart';
 
 class CustomerViewModel extends ChangeNotifier {
@@ -65,26 +65,42 @@ class CustomerViewModel extends ChangeNotifier {
     }
   }
 
-  String currencyFormatter(double amount) {
-    final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
-    return formatCurrency.format(amount);
+  void _errorMessage(String message) {
+    AppAlertDialog(
+      title: 'Erro',
+      content: message,
+      buttonText: "Ok",
+    );
   }
 
   Future<void> addCustomer(String name, bool canSale) async {
-    final newCustomer = Customer(
-      name: name,
-      canSale: canSale,
-      balance: 0.0,
-    );
-    await _service.addCustomer(newCustomer);
+    try {
+      final newCustomer = Customer(
+        name: name,
+        canSale: canSale,
+        balance: 0.0,
+      );
+
+      await _service.addCustomer(newCustomer);
+    } on Exception catch(e) {
+      _errorMessage(e.toString());
+    }
   }
 
   Future<void> updateCustomer(Customer customer) async {
-    await _service.updateCustomer(customer);
+    try {
+      await _service.updateCustomer(customer);
+    } on Exception catch(e) {
+      _errorMessage(e.toString());
+    }
   }
 
   Future<void> deleteCustomer(String id) async {
-    await _service.deleteCustomer(id);
+    try {
+      await _service.deleteCustomer(id);
+    } on Exception catch(e) {
+      _errorMessage(e.toString());
+    }
   }
 
   void openCustomerModal(BuildContext context, CustomerViewModel vm, {Customer? customer}) {

@@ -6,6 +6,7 @@ import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dia
 import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/constants/currency_formatter.dart';
 import '../../../model/customer.dart';
 import '../../widgets/app_search.dart';
 import 'customer_viewmodel.dart';
@@ -31,12 +32,9 @@ class CustomerScreen extends StatelessWidget {
             ),
 
             Expanded(
-              child: vm.isLoading
-                  ? ListView.builder(
-                      itemCount: 6,
-                      itemBuilder: (context, index) => const AppPartnerShimmer(),
-                    )
-                  : ListView.builder(
+              child: vm.isLoading ?
+              ListView.builder(itemCount: 6, itemBuilder: (context, index) => const AppPartnerShimmer()) :
+              ListView.builder(
                 itemCount: vm.customers.length,
                 itemBuilder: (context, index) {
                   Customer customer = vm.customers[index];
@@ -78,7 +76,7 @@ class CustomerScreen extends StatelessWidget {
                                 customer: customer),
                         child: AppPartnerItem(
                           name: customer.name,
-                          balance: vm.currencyFormatter(customer.balance),
+                          balance: CurrencyFormatter.format(customer.balance),
                           canSale: customer.canSale,
                         ),
                       ),
