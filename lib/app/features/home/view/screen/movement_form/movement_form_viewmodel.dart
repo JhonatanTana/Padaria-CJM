@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/features/home/model/customer.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
+import 'package:padaria_cjm2/app/features/home/model/supplier.dart';
 import 'package:padaria_cjm2/app/features/home/services/movements_service.dart';
+import 'package:padaria_cjm2/app/features/home/services/supplier_service.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_alert_dialog.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:padaria_cjm2/main.dart';
@@ -13,8 +15,10 @@ import '../../../services/customer_service.dart';
 class MovementFormViewModel extends ChangeNotifier {
   final _service = MovementsService();
   final _customerService = CustomerService();
+  final _supplierService = SupplierService();
 
-  final String customerId;
+  final String partnerId;
+  final bool isSupplier;
   final Movement? movementToEdit;
 
   final dateController = TextEditingController();
@@ -33,7 +37,7 @@ class MovementFormViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  MovementFormViewModel({required this.customerId, this.movementToEdit}) {
+  MovementFormViewModel({required this.partnerId, required this.isSupplier, this.movementToEdit}) {
     if (movementToEdit != null) {
       _oldAmount = movementToEdit!.amount;
       _isSale = movementToEdit!.isPayment;
@@ -114,7 +118,7 @@ class MovementFormViewModel extends ChangeNotifier {
 
   Future<void> _saveMovement(Movement movement) async {
     try {
-      await _service.addMovement(customerId, movement);
+      await _service.addMovement(partnerId, isSupplier, movement);
     } on Exception catch (e) {
       _errorMessage("Erro ao salvar a movimentação", e.toString());
     }
@@ -122,7 +126,7 @@ class MovementFormViewModel extends ChangeNotifier {
 
   Future<void> _updateMovement(Movement movement) async {
     try {
-      await _service.updateMovement(customerId, movement);
+      await _service.updateMovement(partnerId, isSupplier, movement);
     } on Exception catch (e) {
       _errorMessage("Erro ao editar a movimentação", e.toString());
     }
@@ -132,7 +136,7 @@ class MovementFormViewModel extends ChangeNotifier {
     Customer? response;
 
     try {
-      response = await _customerService.getCustomerById(customerId);
+      response = await _customerService.getCustomerById(partnerId);
     } on Exception catch(e) {
       _errorMessage("Erro ao buscar o cliente", e.toString());
     }
@@ -140,22 +144,49 @@ class MovementFormViewModel extends ChangeNotifier {
     return response;
   }
 
-  Future<void> _updateBalance() async {
-    Customer? customer = await _getCustomerById();
-
-    if(customer == null) return;
+  Future<Supplier?> _getSupplierById() async {
+    Supplier? response;
 
     try {
-      if (movementToEdit != null) {
-        customer.balance = (customer.balance - _oldAmount) + _getAmount();
-      } else {
-        customer.balance += _getAmount();
-      }
-
-      await _customerService.updateBalance(customer.id!, customer.balance);
-
+      response = await _supplierService.getSupplierById(partnerId);
     } on Exception catch(e) {
-      _errorMessage("Erro ao atualizar o saldo", e.toString());
+      _errorMessage("Erro ao buscar o fornecedor", e.toString());
+    }
+
+    return response;
+  }
+
+  Future<void> _updateBalance() async {
+    if (isSupplier) {
+      Supplier? supplier = await _getSupplierById();
+      if (supplier == null) return;
+
+      try {
+        if (movementToEdit != null) {
+          supplier.balance = (supplier.balance - _oldAmount) + _getAmount();
+        } else {
+          supplier.balance += _getAmount();
+        }
+
+        await _supplierService.updateBalance(supplier.id!, supplier.balance);
+      } on Exception catch (e) {
+        _errorMessage("Erro ao atualizar o saldo", e.toString());
+      }
+    } else {
+      Customer? customer = await _getCustomerById();
+      if (customer == null) return;
+
+      try {
+        if (movementToEdit != null) {
+          customer.balance = (customer.balance - _oldAmount) + _getAmount();
+        } else {
+          customer.balance += _getAmount();
+        }
+
+        await _customerService.updateBalance(customer.id!, customer.balance);
+      } on Exception catch (e) {
+        _errorMessage("Erro ao atualizar o saldo", e.toString());
+      }
     }
   }
 }

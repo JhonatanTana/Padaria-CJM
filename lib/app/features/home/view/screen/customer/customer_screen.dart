@@ -69,7 +69,10 @@ class CustomerScreen extends StatelessWidget {
                         onTap: () => Navigator.pushNamed(
                           context,
                           AppRouter.movements,
-                          arguments: customer.id,
+                          arguments: {
+                            'partnerId': customer.id,
+                            'isSupplier': false,
+                          },
                         ),
                         onLongPress: () =>
                             vm.openCustomerModal(context, vm,

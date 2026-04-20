@@ -4,10 +4,12 @@ import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 class MovementsService {
   final FirebaseFirestore _storage = FirebaseFirestore.instance;
 
-  Stream<List<Movement>> getMovementsByCustomerId(String customerId) {
+  String _getCollection(bool isSupplier) => isSupplier ? "fornecedores" : "clientes";
+
+  Stream<List<Movement>> getMovementsByPartnerId(String partnerId, bool isSupplier) {
     return _storage
-        .collection('clientes')
-        .doc(customerId)
+        .collection(_getCollection(isSupplier))
+        .doc(partnerId)
         .collection('movimentacoes')
         .snapshots()
         .map((snapshot) {
@@ -17,27 +19,27 @@ class MovementsService {
         });
   }
 
-  Future<void> addMovement(String customerId, Movement movement) async {
+  Future<void> addMovement(String partnerId, bool isSupplier, Movement movement) async {
     await _storage
-        .collection('clientes')
-        .doc(customerId)
+        .collection(_getCollection(isSupplier))
+        .doc(partnerId)
         .collection('movimentacoes')
         .add(movement.toJSON());
   }
 
-  Future<void> updateMovement(String customerId, Movement movement) async {
+  Future<void> updateMovement(String partnerId, bool isSupplier, Movement movement) async {
     await _storage
-        .collection('clientes')
-        .doc(customerId)
+        .collection(_getCollection(isSupplier))
+        .doc(partnerId)
         .collection('movimentacoes')
         .doc(movement.id)
         .update(movement.toJSON());
   }
 
-  Future<void> deleteMovement(String customerId, String movementId) async {
+  Future<void> deleteMovement(String partnerId, bool isSupplier, String movementId) async {
     await _storage
-        .collection('clientes')
-        .doc(customerId)
+        .collection(_getCollection(isSupplier))
+        .doc(partnerId)
         .collection('movimentacoes')
         .doc(movementId)
         .delete();

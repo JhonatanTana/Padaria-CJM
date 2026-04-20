@@ -21,22 +21,27 @@ class AppRouter {
       case home:
         return MaterialPageRoute(builder: (_) => const HomeRouteScreen());
       case movements:
-        final customerId = settings.arguments as String;
+        final args = settings.arguments as Map<String, dynamic>;
+        final partnerId = args['partnerId'] as String;
+        final isSupplier = args['isSupplier'] as bool;
+
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
-            create: (_) => MovementsViewModel(customerId: customerId),
+            create: (_) => MovementsViewModel(partnerId: partnerId, isSupplier: isSupplier),
             child: const MovementsScreen(),
           ),
         );
       case movementForm:
         final args = settings.arguments as Map<String, dynamic>;
-        final customerId = args['customerId'] as String;
+        final partnerId = args['partnerId'] as String;
+        final isSupplier = args['isSupplier'] as bool? ?? false;
         final movement = args['movement'] as Movement?;
         
         return MaterialPageRoute(
           builder: (_) => ChangeNotifierProvider(
             create: (_) => MovementFormViewModel(
-              customerId: customerId,
+              partnerId: partnerId,
+              isSupplier: isSupplier,
               movementToEdit: movement,
             ),
             child: const MovementFormScreen(),

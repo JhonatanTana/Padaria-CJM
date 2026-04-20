@@ -5,24 +5,34 @@ import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
 import 'package:padaria_cjm2/app/features/home/services/customer_service.dart';
+import 'package:padaria_cjm2/app/features/home/services/supplier_service.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_alert_dialog.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
 
 import '../../../../../../main.dart';
 import '../../../model/customer.dart';
+import '../../../model/supplier.dart';
 import '../../../services/movements_service.dart';
 
 class MovementsViewModel extends ChangeNotifier {
   final _customerService = CustomerService();
+  final _supplierService = SupplierService();
   final _service = MovementsService();
 
-  String? customerId;
+  String? partnerId;
+  bool isSupplier;
   Customer? customer;
+  Supplier? supplier;
   StreamSubscription<List<Movement>>? _subscription;
   List<Movement> movements = [];
 
-  MovementsViewModel({this.customerId}) {
-    _getCustomerById();
+  MovementsViewModel({this.partnerId, required this.isSupplier}) {
+
+    if(!isSupplier) {
+      _getCustomerById();
+    } else {
+      _getSupplierById();
+    }
     _getMovements();
   }
 
@@ -33,9 +43,9 @@ class MovementsViewModel extends ChangeNotifier {
   }
 
   void _getCustomerById() async {
-    if (customerId == null) return;
+    if (partnerId == null) return;
     try {
-      customer = await _customerService.getCustomerById(customerId!);
+      customer = await _customerService.getCustomerById(partnerId!);
 
       if(customer?.canSale == false) {
         AppAlertDialog.show(
@@ -56,11 +66,26 @@ class MovementsViewModel extends ChangeNotifier {
     }
   }
 
+  void _getSupplierById() async {
+    if (partnerId == null) return;
+    try {
+      supplier = await _supplierService.getSupplierById(partnerId!);
+      notifyListeners();
+    } on Exception catch (e) {
+      AppAlertDialog.show(
+        context: navigatorKey.currentContext!,
+        title: "Erro",
+        content: e.toString(),
+        isError: true,
+      );
+    }
+  }
+
   void _getMovements() {
-    if (customerId == null) return;
+    if (partnerId == null) return;
 
     _subscription?.cancel();
-    _subscription = _service.getMovementsByCustomerId(customerId!).listen((newList) {
+    _subscription = _service.getMovementsByPartnerId(partnerId!, isSupplier).listen((newList) {
       movements = newList;
 
       movements.sort((a, b) =>
@@ -172,7 +197,8 @@ class MovementsViewModel extends ChangeNotifier {
                         Navigator.pop(context);
 
                         Navigator.pushNamed(context, AppRouter.movementForm, arguments: {
-                          'customerId': customerId,
+                          'partnerId': partnerId,
+                          'isSupplier': isSupplier,
                           'movement': movement,
                         });
                       },
@@ -248,7 +274,7 @@ class MovementsViewModel extends ChangeNotifier {
   }
 
   Future<void> _deleteMovement(Movement movement) async {
-    if (customerId == null || movement.id == null) return;
+    if (partnerId == null || movement.id == null) return;
 
     final confirmed = await AppConfirmationDialog.show(
       context: navigatorKey.currentContext!,
@@ -263,8 +289,8 @@ class MovementsViewModel extends ChangeNotifier {
     try {
       Navigator.pop(navigatorKey.currentContext!);
 
-      await _service.deleteMovement(customerId!, movement.id!);
-      await _updateCustomerBalance(movement.amount * -1);
+      await _service.deleteMovement(partnerId!, isSupplier, movement.id!);
+      await _updatePartnerBalance(movement.amount * -1);
 
     } catch (e) {
       AppAlertDialog.show(
@@ -276,20 +302,34 @@ class MovementsViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> _updateCustomerBalance(double amountChange) async {
-    if(customer == null) return;
-
-    try {
-      customer!.balance += amountChange;
-      await _customerService.updateBalance(customer!.id!, customer!.balance);
-      notifyListeners();
-    } catch (e) {
-      AppAlertDialog.show(
-        context: navigatorKey.currentContext!,
-        title: "Erro",
-        content: e.toString(),
-        isError: true,
-      );
+  Future<void> _updatePartnerBalance(double amountChange) async {
+    if (isSupplier) {
+      if (supplier == null) return;
+      try {
+        supplier!.balance += amountChange;
+        await _supplierService.updateBalance(supplier!.id!, supplier!.balance);
+        notifyListeners();
+      } catch (e) {
+        _showError(e.toString());
+      }
+    } else {
+      if (customer == null) return;
+      try {
+        customer!.balance += amountChange;
+        await _customerService.updateBalance(customer!.id!, customer!.balance);
+        notifyListeners();
+      } catch (e) {
+        _showError(e.toString());
+      }
     }
+  }
+
+  void _showError(String message) {
+    AppAlertDialog.show(
+      context: navigatorKey.currentContext!,
+      title: "Erro",
+      content: message,
+      isError: true,
+    );
   }
 }

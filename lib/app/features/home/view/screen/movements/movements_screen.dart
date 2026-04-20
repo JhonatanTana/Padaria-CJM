@@ -18,7 +18,7 @@ class MovementsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: vm.customer?.name ?? "Movimentações"
+        title: vm.isSupplier ? (vm.supplier?.name ?? "Movimentações") : (vm.customer?.name ?? "Movimentações")
       ),
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -30,27 +30,28 @@ class MovementsScreen extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   itemCount: vm.movements.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context,index) {
                     Movement movement = vm.movements[index];
-
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                       child: AppMovementItem(
-                          item: movement,
-                          onTap: () => vm.openNotesModal(context, movement.notes),
-                          onLongPress: () => vm.openOptionsMenu(context, movement)
-                      ),
+                        item: movement,
+                        onTap: () => vm.openNotesModal(context,movement.notes),
+                        onLongPress: () => vm.openOptionsMenu(context,movement)
+                      )
                     );
                   },
                 ),
               ),
+
               Divider(color: Colors.grey[300], thickness: 1),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const AppText(text: "Total"),
                   AppText(
-                    text: vm.currencyFormatter(vm.customer != null ? vm.totalBalance : 0)
+                    text: vm.currencyFormatter(vm.totalBalance)
                   ),
                 ],
               ),
@@ -68,7 +69,10 @@ class MovementsScreen extends StatelessWidget {
           onPressed: () => Navigator.pushNamed(
             context, 
             AppRouter.movementForm, 
-            arguments: {'customerId': vm.customerId}
+            arguments: {
+              'partnerId': vm.partnerId,
+              'isSupplier': vm.isSupplier,
+            }
           ),
           child: const Icon(Icons.add, color: Colors.white),
         ),

@@ -69,7 +69,10 @@ class SupplierScreen extends StatelessWidget {
                         onTap: () => Navigator.pushNamed(
                           context,
                           AppRouter.movements,
-                          arguments: supplier.id,
+                          arguments: {
+                            'partnerId': supplier.id,
+                            'isSupplier': true,
+                          },
                         ),
                         onLongPress: () =>
                             vm.openSupplierModal(context, supplier),
