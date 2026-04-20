@@ -44,4 +44,12 @@ class MovementsService {
         .doc(movementId)
         .delete();
   }
+
+  Future<List<Movement>> getAllMovements() {
+    return _storage
+        .collection('movimentacoes').get()
+        .then((snapshot) {
+          return snapshot.docs.map((doc) => Movement.fromMap(doc.data(), doc.id)).toList();
+        });
+  }
 }

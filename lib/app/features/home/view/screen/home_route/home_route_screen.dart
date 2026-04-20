@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:padaria_cjm2/app/features/home/model/bottom_navigation.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
-import 'package:padaria_cjm2/app/features/home/view/screen/supplier/supplier_viewmodel.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_top_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../widgets/app_bottom_bar.dart';
-import '../customer/customer_viewmodel.dart';
 import 'home_route_viewmodel.dart';
 
 class HomeRouteScreen extends StatelessWidget {
@@ -18,8 +16,6 @@ class HomeRouteScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomeRouteViewModel()),
-        ChangeNotifierProvider(create: (_) => CustomerViewModel()),
-        ChangeNotifierProvider(create: (_) => SupplierViewModel()),
       ],
       child: PopScope(
         canPop: false,
