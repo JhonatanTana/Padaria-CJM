@@ -61,13 +61,16 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
         child: Column(
           spacing: 4,
           children: [
-            AppRadio<bool>(
-              values: const [false, true],
-              labels: const ["Venda", "Pagamento"],
-              value: vm.isSale,
-              onChanged: (value) {
-                vm.isSale = value!;
-              },
+            Visibility(
+              visible: !vm.isSupplier,
+              child: AppRadio<bool>(
+                values: const [false, true],
+                labels: const ["Venda", "Pagamento"],
+                value: vm.isSale,
+                onChanged: (value) {
+                  vm.isSale = value!;
+                },
+              ),
             ),
 
             AppInput(
@@ -96,7 +99,7 @@ class _MovementFormScreenState extends State<MovementFormScreen> {
             SizedBox(height: 4,),
 
             Visibility(
-              visible: vm.isSale,
+              visible: vm.isSale || vm.isSupplier,
               child: AppDropdown<String>(
                 label: "Forma de Pagamento",
                 items: const ["Dinheiro", "Cartão", "Pix"],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
-class AppDropdown<T> extends StatefulWidget {
+class AppDropdown<T> extends StatelessWidget {
   final List<T> items;
   final T? value;
   final String label;
@@ -17,80 +18,62 @@ class AppDropdown<T> extends StatefulWidget {
   });
 
   @override
-  State<AppDropdown<T>> createState() => _AppDropdownState<T>();
-}
-
-class _AppDropdownState<T> extends State<AppDropdown<T>> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<T>(
-      initialValue: widget.value,
-      isExpanded: true,
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        color: Colors.grey,
+    final selectedValue = ValueNotifier<T?>(value);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey),
       ),
-      dropdownColor: Colors.white,
-      elevation: 2,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2<T>(
+          isExpanded: true,
+          hint: Text(label),
 
-      decoration: InputDecoration(
-        hintText: widget.label,
-        hintStyle: const TextStyle(fontFamily: 'Arial'),
+          valueListenable: selectedValue,
 
-        filled: true,
-        fillColor: Colors.white,
-
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
-
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide.none,
-        ),
-
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(
-            color: Colors.grey,
+          buttonStyleData: const ButtonStyleData(
+            padding: EdgeInsets.zero,
+            height: 50,
           ),
-        ),
 
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(
-            color: Colors.grey,
-            width: 1.5,
-          ),
-        ),
-      ),
-
-      items: widget.items.map((item) {
-        return DropdownMenuItem<T>(
-          value: item,
-          child: Text(
-            widget.itemLabel(item),
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
+          dropdownStyleData: DropdownStyleData(
+            maxHeight: 220,
+            width: MediaQuery.of(context).size.width * 0.85,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: Colors.white,
             ),
           ),
-        );
-      }).toList(),
 
-      onChanged: widget.onChanged,
+          iconStyleData: const IconStyleData(
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.grey,
+            ),
+          ),
+
+          items: items.map((item) {
+            return DropdownItem<T>(
+              value: item,
+              child: Text(
+                itemLabel(item),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            );
+          }).toList(),
+
+          onChanged: (newValue) {
+            selectedValue.value = newValue;
+            onChanged(newValue);
+          },
+        ),
+      ),
     );
   }
 }

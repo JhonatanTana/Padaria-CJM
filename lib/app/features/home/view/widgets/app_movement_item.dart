@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:padaria_cjm2/app/core/constants/currency_formatter.dart';
 import 'package:padaria_cjm2/app/features/home/model/movements.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 import '../../../../core/constants/date_formatter.dart';
 
 class AppMovementItem extends StatelessWidget {
+  final bool isSupplier;
   final Movement item;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
 
-  const AppMovementItem({super.key, required this.item, this.onTap, this.onLongPress});
+  const AppMovementItem({super.key, required this.item, this.onTap, this.onLongPress, required this.isSupplier});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +32,12 @@ class AppMovementItem extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: item.isPayment ? Colors.green.shade100 : Colors.grey.shade100,
-                child: Icon(
-                  item.isPayment ? Icons.attach_money : Icons.receipt,
-                  color: item.isPayment ? Colors.green : Colors.grey,
+                backgroundColor: isSupplier ? Colors.grey.shade100 :
+                  item.isPayment ? Colors.green.shade100 : Colors.grey.shade100,
+                child: Icon(isSupplier ? Icons.receipt :
+                    item.isPayment ? Icons.attach_money : Icons.receipt,
+                  color: isSupplier ? Colors.grey :
+                    item.isPayment ? Colors.green : Colors.grey,
                 )
               ),
 
@@ -45,7 +46,10 @@ class AppMovementItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      isSupplier ? item.notes ?? '' :
                       item.isPayment ? "Pagamento" : "Venda",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -65,7 +69,8 @@ class AppMovementItem extends StatelessWidget {
                 CurrencyFormatter.format(item.amount),
                 style: TextStyle(
                   fontSize: 15,
-                  color: item.isPayment ? Colors.green : Colors.black,
+                  color: isSupplier ? Colors.black :
+                    item.isPayment ? Colors.green : Colors.black,
                 ),
               ),
             ],

@@ -76,7 +76,13 @@ class MovementFormViewModel extends ChangeNotifier {
   }
 
   double _getAmount() {
-    return isSale ? -double.parse(amountController.text) : double.parse(amountController.text);
+    double amount = double.parse(amountController.text);
+
+    if(isSale) {
+      amount = amount * -1;
+    }
+
+    return amount;
   }
 
   void updateDate(DateTime picked) {

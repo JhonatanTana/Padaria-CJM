@@ -37,7 +37,8 @@ class MovementsScreen extends StatelessWidget {
                       child: AppMovementItem(
                         item: movement,
                         onTap: () => vm.openNotesModal(context,movement.notes),
-                        onLongPress: () => vm.openOptionsMenu(context,movement)
+                        onLongPress: () => vm.openOptionsMenu(context,movement),
+                        isSupplier: vm.isSupplier,
                       )
                     );
                   },
