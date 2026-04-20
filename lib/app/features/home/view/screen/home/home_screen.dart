@@ -31,12 +31,13 @@ class HomeScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: AppLittleCard(
-                        title: "Vendas",
-                        icon: Icons.shopping_cart,
-                        iconColor: Colors.orange,
-                        backgroundIconColor: Colors.orange.shade100,
-                      )
+                    child: AppLittleCard(
+                      title: "Fiados",
+                      icon: Icons.shopping_cart,
+                      iconColor: Colors.orange,
+                      backgroundIconColor: Colors.orange.shade100,
+                      amount: 100,
+                    )
                   ),
                   Expanded(
                     child: AppLittleCard(
@@ -44,6 +45,7 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.attach_money,
                       iconColor: Colors.blue,
                       backgroundIconColor: Colors.blue.shade100,
+                      amount: 100,
                     )
                   ),
                 ],
