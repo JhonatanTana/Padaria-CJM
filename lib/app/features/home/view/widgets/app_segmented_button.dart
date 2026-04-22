@@ -49,6 +49,7 @@ class AppSegmentedButton<T> extends StatelessWidget {
                 option.label,
                 style: TextStyle(
                   fontSize: 13,
+                  fontFamily: 'Arial',
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                   color: isSelected ? AppColors.primary : Colors.grey.shade400,
                 ),

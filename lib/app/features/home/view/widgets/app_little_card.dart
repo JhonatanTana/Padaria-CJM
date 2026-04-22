@@ -40,14 +40,14 @@ class AppLittleCard extends StatelessWidget {
                   child: Icon(
                     icon,
                     color: iconColor,
-                    size: 18,
+                    size: 20,
                   )
                 ),
 
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontFamily: 'Arial'
                   ),
                 ),
@@ -62,7 +62,7 @@ class AppLittleCard extends StatelessWidget {
                   CurrencyFormatter.format(value),
                   style: const TextStyle(
                     fontSize: 22,
-                    fontFamily: 'Arial',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
                   ),
                 );

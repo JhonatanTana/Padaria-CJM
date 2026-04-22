@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:padaria_cjm2/app/core/constants/currency_formatter.dart';
 import 'package:padaria_cjm2/app/features/home/model/supplier.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_dropdown.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_search.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_button.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_text.dart';
@@ -32,6 +33,7 @@ class SupplierView extends StatelessWidget {
 
   void _openSupplierModal(BuildContext context, SupplierCubit cubit, Supplier? supplier) {
     final TextEditingController nameController = TextEditingController(text: supplier?.name ?? "");
+    final TextEditingController categoryController = TextEditingController(text: supplier?.category ?? "Despesa");
 
     showModalBottomSheet(
       context: context,
@@ -69,6 +71,15 @@ class SupplierView extends StatelessWidget {
                 controller: nameController,
               ),
 
+              AppDropdown(
+                items: const ['Despesa', 'Particular', 'Encargo'],
+                onChanged: (value) {
+                  categoryController.text = value!;
+                },
+                value: categoryController.text,
+                itemLabel: (item) => item,
+              ),
+
               AppButton(
                 text: "Salvar",
                 onPressed: () {
@@ -76,7 +87,7 @@ class SupplierView extends StatelessWidget {
                      supplier.name = nameController.text;
                      cubit.updateSupplier(supplier);
                    } else {
-                     cubit.addSupplier(nameController.text);
+                     cubit.addSupplier(nameController.text, categoryController.text);
                    }
                    Navigator.pop(modalContext);
                 },

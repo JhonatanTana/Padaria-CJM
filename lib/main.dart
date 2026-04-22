@@ -45,8 +45,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFD7263D)),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
+
           systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: Colors.transparent,
+            statusBarBrightness: Brightness.light
           ),
         ),
       ),

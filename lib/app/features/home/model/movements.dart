@@ -13,7 +13,7 @@ class Movement {
   Movement.fromMap(Map<String, dynamic> map, String documentId)
     : id = documentId,
     date = map['data'],
-    isPayment = map['pagamento'],
+    isPayment = map['isPayment'],
     amount = map['valor'],
     notes = map['notas'],
     paymentMethod = map['paymentMethod'];
@@ -21,7 +21,7 @@ class Movement {
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['data'] = date;
-    data['pagamento'] = isPayment;
+    data['isPayment'] = isPayment;
     data['valor'] = amount;
     data['notas'] = notes;
     data['paymentMethod'] = paymentMethod;

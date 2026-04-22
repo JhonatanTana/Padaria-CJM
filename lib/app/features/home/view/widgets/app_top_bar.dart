@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -10,12 +9,8 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Navigator.canPop(context)
-          ? IconButton(
-        icon: const Icon(Icons.chevron_left),
-        onPressed: () => Navigator.pop(context),
-      )
-          : null,
+      leading: Navigator.canPop(context) ? IconButton(icon: const Icon(Icons.chevron_left),
+      onPressed: () => Navigator.pop(context)) : null,
       title: Text(
         title,
         style: const TextStyle(
@@ -23,7 +18,6 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
       foregroundColor: Colors.black,
       backgroundColor: const Color(0xFFF8F9FB),
       actions: actions ?? [],

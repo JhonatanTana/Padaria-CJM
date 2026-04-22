@@ -1,12 +1,14 @@
 class Supplier {
   String? id;
   String name;
+  String category;
   double balance;
 
-  Supplier({this.id, required this.name, required this.balance});
+  Supplier({this.id, required this.name, required this.balance, required this.category});
 
   Supplier.fromMap(Map<String, dynamic> map, String this.id)
       :  name = map['name'],
+        category = map['category'],
         balance = map['balance'];
 
 
@@ -14,6 +16,7 @@ class Supplier {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
+    data['category'] = category;
     data['balance'] = balance;
     return data;
   }

@@ -14,6 +14,10 @@ class AppSearch extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: title,
+          hintStyle: TextStyle(
+            fontFamily: 'Arial',
+            color: Colors.grey.shade400,
+          ),
           prefixIcon: Icon(Icons.search),
           filled: true,
           fillColor: Colors.white,

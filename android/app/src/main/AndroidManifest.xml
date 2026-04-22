@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="padaria_cjm2"
+        android:label="Padaria CJM"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -48,11 +48,12 @@ class SupplierCubit extends Cubit<SupplierState> {
     emit(SupplierLoaded(suppliers: filtered, searchQuery: query));
   }
 
-  Future<void> addSupplier(String name) async {
+  Future<void> addSupplier(String name, String category) async {
     try {
       final newSupplier = Supplier(
         name: name,
         balance: 0.0,
+        category: category
       );
       await _service.addSupplier(newSupplier);
     } catch (e) {

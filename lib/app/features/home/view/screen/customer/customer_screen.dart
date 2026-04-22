@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:padaria_cjm2/app/features/home/router/app_router.dart';
+import 'package:padaria_cjm2/app/features/home/view/widgets/app_button.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_item.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_partner_shimmer.dart';
 import 'package:padaria_cjm2/app/features/home/view/widgets/app_confirmation_dialog.dart';
@@ -78,7 +79,7 @@ class CustomerView extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
-                      vertical: 10,
+                      vertical: 0,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -107,37 +108,21 @@ class CustomerView extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD7263D),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 2,
-                      ),
-                      onPressed: () async {
-                        if (nameController.text.isNotEmpty) {
-                          if (customer == null) {
-                            await cubit.addCustomer(nameController.text, canSale);
-                          } else {
-                            customer.name = nameController.text;
-                            customer.canSale = canSale;
-                            await cubit.updateCustomer(customer);
-                          }
-                          if (context.mounted) Navigator.pop(context);
+                  AppButton(
+                    text: "Salvar",
+                    onPressed: () async {
+                      if (nameController.text.isNotEmpty) {
+                        if (customer == null) {
+                          await cubit.addCustomer(nameController.text, canSale);
+                        } else {
+                          customer.name = nameController.text;
+                          customer.canSale = canSale;
+                          await cubit.updateCustomer(customer);
                         }
-                      },
-                      child: const Text(
-                        "Salvar",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                        if (context.mounted) Navigator.pop(context);
+                      }
+                    },
+                    isLoading: false,
                   ),
                 ],
               ),
