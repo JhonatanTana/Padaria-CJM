@@ -5,80 +5,127 @@ import 'package:flutter/widgets.dart';
 class Assets {
   Assets._();
 
-  static const $AssetsFontsGen fonts = $AssetsFontsGen();
-  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsFontsGen fonts =
+      $AssetsFontsGen();
+  static const $AssetsImagesGen images =
+      $AssetsImagesGen();
 }
 
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
-  final String montserratBlack = 'assets/fonts/Montserrat-Black.ttf';
+  final String montserratBlack =
+      'assets/fonts/Montserrat-Black.ttf';
   final String montserratBlackItalic =
       'assets/fonts/Montserrat-BlackItalic.ttf';
-  final String montserratBold = 'assets/fonts/Montserrat-Bold.ttf';
-  final String montserratBoldItalic = 'assets/fonts/Montserrat-BoldItalic.ttf';
-  final String montserratExtraBold = 'assets/fonts/Montserrat-ExtraBold.ttf';
-  final String montserratExtraBoldItalic =
+  final String montserratBold =
+      'assets/fonts/Montserrat-Bold.ttf';
+  final String montserratBoldItalic =
+      'assets/fonts/Montserrat-BoldItalic.ttf';
+  final String montserratExtraBold =
+      'assets/fonts/Montserrat-ExtraBold.ttf';
+  final String
+  montserratExtraBoldItalic =
       'assets/fonts/Montserrat-ExtraBoldItalic.ttf';
-  final String montserratExtraLight = 'assets/fonts/Montserrat-ExtraLight.ttf';
-  final String montserratExtraLightItalic =
+  final String montserratExtraLight =
+      'assets/fonts/Montserrat-ExtraLight.ttf';
+  final String
+  montserratExtraLightItalic =
       'assets/fonts/Montserrat-ExtraLightItalic.ttf';
-  final String montserratItalic = 'assets/fonts/Montserrat-Italic.ttf';
-  final String montserratItalicVariableFontWght =
+  final String montserratItalic =
+      'assets/fonts/Montserrat-Italic.ttf';
+  final String
+  montserratItalicVariableFontWght =
       'assets/fonts/Montserrat-Italic-VariableFont_wght.ttf';
-  final String montserratLight = 'assets/fonts/Montserrat-Light.ttf';
+  final String montserratLight =
+      'assets/fonts/Montserrat-Light.ttf';
   final String montserratLightItalic =
       'assets/fonts/Montserrat-LightItalic.ttf';
-  final String montserratMedium = 'assets/fonts/Montserrat-Medium.ttf';
+  final String montserratMedium =
+      'assets/fonts/Montserrat-Medium.ttf';
   final String montserratMediumItalic =
       'assets/fonts/Montserrat-MediumItalic.ttf';
-  final String montserratRegular = 'assets/fonts/Montserrat-Regular.ttf';
-  final String montserratSemiBold = 'assets/fonts/Montserrat-SemiBold.ttf';
-  final String montserratSemiBoldItalic =
+  final String montserratRegular =
+      'assets/fonts/Montserrat-Regular.ttf';
+  final String montserratSemiBold =
+      'assets/fonts/Montserrat-SemiBold.ttf';
+  final String
+  montserratSemiBoldItalic =
       'assets/fonts/Montserrat-SemiBoldItalic.ttf';
-  final String montserratThin = 'assets/fonts/Montserrat-Thin.ttf';
-  final String montserratThinItalic = 'assets/fonts/Montserrat-ThinItalic.ttf';
-  final String montserratVariableFontWght =
+  final String montserratThin =
+      'assets/fonts/Montserrat-Thin.ttf';
+  final String montserratThinItalic =
+      'assets/fonts/Montserrat-ThinItalic.ttf';
+  final String
+  montserratVariableFontWght =
       'assets/fonts/Montserrat-VariableFont_wght.ttf';
-  final String oswaldBold = 'assets/fonts/Oswald-Bold.ttf';
-  final String oswaldExtraLight = 'assets/fonts/Oswald-ExtraLight.ttf';
-  final String oswaldLight = 'assets/fonts/Oswald-Light.ttf';
-  final String oswaldMedium = 'assets/fonts/Oswald-Medium.ttf';
-  final String oswaldRegular = 'assets/fonts/Oswald-Regular.ttf';
-  final String oswaldSemiBold = 'assets/fonts/Oswald-SemiBold.ttf';
+  final String oswaldBold =
+      'assets/fonts/Oswald-Bold.ttf';
+  final String oswaldExtraLight =
+      'assets/fonts/Oswald-ExtraLight.ttf';
+  final String oswaldLight =
+      'assets/fonts/Oswald-Light.ttf';
+  final String oswaldMedium =
+      'assets/fonts/Oswald-Medium.ttf';
+  final String oswaldRegular =
+      'assets/fonts/Oswald-Regular.ttf';
+  final String oswaldSemiBold =
+      'assets/fonts/Oswald-SemiBold.ttf';
   final String oswaldVariableFontWght =
       'assets/fonts/Oswald-VariableFont_wght.ttf';
-  final String poppinsBlack = 'assets/fonts/Poppins-Black.ttf';
-  final String poppinsBlackItalic = 'assets/fonts/Poppins-BlackItalic.ttf';
-  final String poppinsBold = 'assets/fonts/Poppins-Bold.ttf';
-  final String poppinsBoldItalic = 'assets/fonts/Poppins-BoldItalic.ttf';
-  final String poppinsExtraBold = 'assets/fonts/Poppins-ExtraBold.ttf';
+  final String poppinsBlack =
+      'assets/fonts/Poppins-Black.ttf';
+  final String poppinsBlackItalic =
+      'assets/fonts/Poppins-BlackItalic.ttf';
+  final String poppinsBold =
+      'assets/fonts/Poppins-Bold.ttf';
+  final String poppinsBoldItalic =
+      'assets/fonts/Poppins-BoldItalic.ttf';
+  final String poppinsExtraBold =
+      'assets/fonts/Poppins-ExtraBold.ttf';
   final String poppinsExtraBoldItalic =
       'assets/fonts/Poppins-ExtraBoldItalic.ttf';
-  final String poppinsExtraLight = 'assets/fonts/Poppins-ExtraLight.ttf';
+  final String poppinsExtraLight =
+      'assets/fonts/Poppins-ExtraLight.ttf';
   final String poppinsExtraLightItalic =
       'assets/fonts/Poppins-ExtraLightItalic.ttf';
-  final String poppinsItalic = 'assets/fonts/Poppins-Italic.ttf';
-  final String poppinsLight = 'assets/fonts/Poppins-Light.ttf';
-  final String poppinsLightItalic = 'assets/fonts/Poppins-LightItalic.ttf';
-  final String poppinsMedium = 'assets/fonts/Poppins-Medium.ttf';
-  final String poppinsMediumItalic = 'assets/fonts/Poppins-MediumItalic.ttf';
-  final String poppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
-  final String poppinsSemiBold = 'assets/fonts/Poppins-SemiBold.ttf';
+  final String poppinsItalic =
+      'assets/fonts/Poppins-Italic.ttf';
+  final String poppinsLight =
+      'assets/fonts/Poppins-Light.ttf';
+  final String poppinsLightItalic =
+      'assets/fonts/Poppins-LightItalic.ttf';
+  final String poppinsMedium =
+      'assets/fonts/Poppins-Medium.ttf';
+  final String poppinsMediumItalic =
+      'assets/fonts/Poppins-MediumItalic.ttf';
+  final String poppinsRegular =
+      'assets/fonts/Poppins-Regular.ttf';
+  final String poppinsSemiBold =
+      'assets/fonts/Poppins-SemiBold.ttf';
   final String poppinsSemiBoldItalic =
       'assets/fonts/Poppins-SemiBoldItalic.ttf';
-  final String poppinsThin = 'assets/fonts/Poppins-Thin.ttf';
-  final String poppinsThinItalic = 'assets/fonts/Poppins-ThinItalic.ttf';
+  final String poppinsThin =
+      'assets/fonts/Poppins-Thin.ttf';
+  final String poppinsThinItalic =
+      'assets/fonts/Poppins-ThinItalic.ttf';
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  final AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
+  final AssetGenImage logo =
+      const AssetGenImage(
+        'assets/images/logo.png',
+      );
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
@@ -89,7 +136,8 @@ class AssetGenImage {
     Key? key,
     AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
-    ImageErrorWidgetBuilder? errorBuilder,
+    ImageErrorWidgetBuilder?
+    errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
     double? scale,
@@ -99,14 +147,17 @@ class AssetGenImage {
     Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
-    AlignmentGeometry alignment = Alignment.center,
-    ImageRepeat repeat = ImageRepeat.noRepeat,
+    AlignmentGeometry alignment =
+        Alignment.center,
+    ImageRepeat repeat =
+        ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality =
+        FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -117,7 +168,8 @@ class AssetGenImage {
       frameBuilder: frameBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
-      excludeFromSemantics: excludeFromSemantics,
+      excludeFromSemantics:
+          excludeFromSemantics,
       scale: scale,
       width: width,
       height: height,
@@ -128,7 +180,8 @@ class AssetGenImage {
       alignment: alignment,
       repeat: repeat,
       centerSlice: centerSlice,
-      matchTextDirection: matchTextDirection,
+      matchTextDirection:
+          matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
       package: package,
@@ -138,17 +191,29 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({AssetBundle? bundle, String? package}) {
-    return AssetImage(_assetName, bundle: bundle, package: package);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
   }
 
   Widget custom({
     Key? key,
-    required Widget Function(BuildContext context, String assetPath) builder,
+    required Widget Function(
+      BuildContext context,
+      String assetPath,
+    )
+    builder,
   }) {
     return Builder(
       key: key,
-      builder: (context) => builder(context, _assetName),
+      builder: (context) =>
+          builder(context, _assetName),
     );
   }
 
